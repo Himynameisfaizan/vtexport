@@ -25,6 +25,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
 
     <link rel="stylesheet" href="assets/style/include.css">
     <link rel="stylesheet" href="assets/style/style.css">
+    <link rel="stylesheet" href="assets/style/about.css">
 
     <!-- SEO JSON-LD Schema -->
     <script type="application/ld+json">
@@ -101,7 +102,6 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
                     <li class="nav-item">
                         <a class="nav-link" href="about.php">About Us</a>
                     </li>
-                    <!-- Dynamic Products Dropdown (Good for SEO Internal Linking) -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="products.php" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Our Products

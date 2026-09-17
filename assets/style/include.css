@@ -117,19 +117,23 @@ body {
 
 /* Sticky Navbar JS Class */
 .is-sticky {
-    position: fixed;
-    top: 0 !important; /* Force to absolute top */
-    left: 0;
-    width: 100%;
-    z-index: 1030;
-    background-color: var(--bg-white) !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* Premium soft shadow */
-    animation: slideDown 0.4s ease-in-out forwards;
+  position: fixed;
+  top: 0 !important; /* Force to absolute top */
+  left: 0;
+  width: 100%;
+  z-index: 1030;
+  background-color: var(--bg-white) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Premium soft shadow */
+  animation: slideDown 0.4s ease-in-out forwards;
 }
 
 @keyframes slideDown {
-    from { transform: translateY(-100%); }
-    to { transform: translateY(0); }
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* =======================
@@ -203,4 +207,115 @@ body {
   padding-top: 20px;
   text-align: center;
   font-size: 0.85rem;
+}
+
+/* =====================
+  Breadcrumb Styling
+=======================*/
+
+.breadcrumb-section {
+  position: relative;
+  padding: 80px 0;
+  
+  /* 🔥 THE FIX: Pattern aur Gradient dono ek sath combine kar diye 🔥 */
+  background: 
+    radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px), 
+    linear-gradient(135deg, #0a2540 0%, #051626 100%) !important;
+  background-size: 20px 20px, 100% 100%;
+  background-color: #0a2540 !important; /* Fallback strict color */
+  
+  color: #ffffff !important;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 3px solid #d4af37 !important; /* Gold Accent Line */
+}
+
+/* Ensure title is always white */
+.breadcrumb-title {
+  color: #ffffff !important;
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8) !important;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUpTitle 0.6s ease forwards;
+}
+
+/* Subtle glow effect behind text */
+.breadcrumb-section::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(212, 175, 55, 0.1) 0%,
+    transparent 70% 
+  ) !important;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.breadcrumb-content {
+  position: relative;
+  z-index: 2;
+}
+
+.breadcrumb-nav {
+  display: flex;
+  justify-content: center;
+  /* Delaying the breadcrumb link animation slightly */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUpTitle 0.6s ease 0.2s forwards;
+}
+
+.breadcrumb {
+  background: rgba(255, 255, 255, 0.05) !important; /* Slight glassmorphism */
+  padding: 10px 25px;
+  border-radius: 30px;
+  margin: 0;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important; 
+}
+
+.breadcrumb-item {
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.breadcrumb-item a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+  color: #d4af37 !important; 
+}
+
+.breadcrumb-item.active {
+  color: #d4af37 !important; 
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "›"; /* Premium separator */
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-size: 1.2rem;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+@keyframes fadeUpTitle {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
