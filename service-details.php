@@ -1,19 +1,22 @@
 <?php
 require_once 'config/connect.php'; 
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-if($id == 0){
+// Fetch Service by Slug URL
+$slug = isset($_GET['slug']) ? mysqli_real_escape_string($conn, $_GET['slug']) : '';
+if(empty($slug)){
     header("Location: services.php");
     exit;
 }
 
-$serv_query = mysqli_query($conn, "SELECT * FROM services WHERE id = '$id'");
+// Database mein id ki jagah slug_url check kar rahe hain
+$serv_query = mysqli_query($conn, "SELECT * FROM services WHERE slug_url = '$slug'");
 if(mysqli_num_rows($serv_query) == 0){
     header("Location: services.php");
     exit;
 }
 $service = mysqli_fetch_assoc($serv_query);
 
+// Set Page Title for Breadcrumb
 $pageTitle = $service['service_name'];
 
 // Image Path Logic
