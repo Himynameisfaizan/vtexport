@@ -355,50 +355,6 @@ $test_query = mysqli_query($conn, "SELECT name, designation, message FROM testim
     </div>
 </section>
 
-<!-- Brands Section -->
-<?php
-$brand_query = mysqli_query($conn, "SELECT brand_name, logo_path FROM brands ORDER BY id DESC");
-$brands = [];
-if(mysqli_num_rows($brand_query) > 0) {
-    while($row = mysqli_fetch_assoc($brand_query)) {
-        $brands[] = $row;
-    }
-}
-?>
-
-<section class="brands-section">
-    <div class="container">
-        <div class="brands-header">
-            <span style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Global Trust</span>
-            <h2>Our Trusted Partners</h2>
-            <div style="width: 50px; height: 3px; background: #d4af37; margin: 15px auto 20px;"></div>
-            <p>We are proud to collaborate with industry-leading brands and organizations globally, delivering uncompromised quality and excellence.</p>
-        </div>
-    </div>
-
-    <div class="brand-slider-container">
-        <div class="brand-track">
-            <?php 
-            if(!empty($brands)) {
-                // Loop twice to create the seamless infinite scroll illusion
-                for($i = 0; $i < 2; $i++) {
-                    foreach($brands as $brand) {
-                        // Image path logic matching previous sections
-                        $b_img = !empty($brand['logo_path']) ? 'admin/' . $brand['logo_path'] : 'assets/images/default-brand.png';
-                        echo '<div class="brand-item">';
-                        echo '<img src="'.$b_img.'" alt="'.htmlspecialchars($brand['brand_name']).'" title="'.htmlspecialchars($brand['brand_name']).'">';
-                        echo '</div>';
-                    }
-                }
-            } else {
-                echo '<p class="text-center w-100">Partner logos will appear here.</p>';
-            }
-            ?>
-        </div>
-    </div>
-</section>
-
-
 <!-- Gallery Section -->
 <?php
 $gal_query = mysqli_query($conn, "SELECT image_path, image_name FROM gallery ORDER BY ID DESC LIMIT 6");
@@ -480,6 +436,50 @@ $blog_query = mysqli_query($conn, "SELECT title, slug, image, description, creat
         </div>
     </div>
 </section>
+
+<!-- Brands Section -->
+<?php
+$brand_query = mysqli_query($conn, "SELECT brand_name, logo_path FROM brands ORDER BY id DESC");
+$brands = [];
+if(mysqli_num_rows($brand_query) > 0) {
+    while($row = mysqli_fetch_assoc($brand_query)) {
+        $brands[] = $row;
+    }
+}
+?>
+
+<section class="brands-section">
+    <div class="container">
+        <div class="brands-header">
+            <span style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Global Trust</span>
+            <h2>Our Trusted Partners</h2>
+            <div style="width: 50px; height: 3px; background: #d4af37; margin: 15px auto 20px;"></div>
+            <p>We are proud to collaborate with industry-leading brands and organizations globally, delivering uncompromised quality and excellence.</p>
+        </div>
+    </div>
+
+    <div class="brand-slider-container">
+        <div class="brand-track">
+            <?php 
+            if(!empty($brands)) {
+                // Loop twice to create the seamless infinite scroll illusion
+                for($i = 0; $i < 2; $i++) {
+                    foreach($brands as $brand) {
+                        // Image path logic matching previous sections
+                        $b_img = !empty($brand['logo_path']) ? 'admin/' . $brand['logo_path'] : 'assets/images/default-brand.png';
+                        echo '<div class="brand-item">';
+                        echo '<img src="'.$b_img.'" alt="'.htmlspecialchars($brand['brand_name']).'" title="'.htmlspecialchars($brand['brand_name']).'">';
+                        echo '</div>';
+                    }
+                }
+            } else {
+                echo '<p class="text-center w-100">Partner logos will appear here.</p>';
+            }
+            ?>
+        </div>
+    </div>
+</section>
+
 
 <!-- Inquiry Section -->
 <?php

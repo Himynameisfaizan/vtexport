@@ -26,6 +26,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
     <link rel="stylesheet" href="assets/style/include.css">
     <link rel="stylesheet" href="assets/style/style.css">
     <link rel="stylesheet" href="assets/style/about.css">
+    <link rel="stylesheet" href="assets/style/product.css">
 
     <!-- SEO JSON-LD Schema -->
     <script type="application/ld+json">
