@@ -745,7 +745,7 @@
   text-align: left;
 }
 
-.prod-title {
+.prod-title a{
   font-size: 1.15rem;
   font-weight: 700;
   color: #111;
@@ -1037,7 +1037,7 @@
   display: flex;
   flex-direction: column;
 }
-.blog-title {
+.blog-title a{
   color: #0a2540;
   font-size: 1.25rem;
   font-weight: 700;
