@@ -1,4 +1,4 @@
-<?php include 'include/header.php'; ?>
+<?php include 'includes/header.php'; ?>
 
 <section class="py-5" style="background-color: #f8f9fa;">
     <div class="container mt-5">
@@ -46,4 +46,4 @@
     </div>
 </section>
 
-<?php include 'include/footer.php'; ?>
+<?php include 'includes/footer.php'; ?>

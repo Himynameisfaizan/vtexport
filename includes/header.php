@@ -54,10 +54,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
       ]
     }
     </script>
-<style>
-        /* Header Fixes CSS */
-    
-    </style>
+
 </head>
 <body>
 
@@ -97,7 +94,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
         <div class="container position-relative">
             <!-- Dynamic Logo -->
             <a class="navbar-brand" href="index.php">
-                <img src="admin/<?php echo $logo_url; ?>" alt="VT Export" style="max-height: 60px;">
+                <img src="admin/uploads/<?php echo $logo_url; ?>" alt="VT Export" style="max-height: 60px;">
             </a>
             
             <!-- 🔥 FIX: Mobile Search Icon + Menu Toggler 🔥 -->
