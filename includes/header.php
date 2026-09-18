@@ -27,6 +27,8 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
     <link rel="stylesheet" href="assets/style/style.css">
     <link rel="stylesheet" href="assets/style/about.css">
     <link rel="stylesheet" href="assets/style/product.css">
+    <link rel="stylesheet" href="assets/style/service.css">
+    <link rel="stylesheet" href="assets/style/blog.css">
 
     <!-- SEO JSON-LD Schema -->
     <script type="application/ld+json">
@@ -118,6 +120,12 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="products.php">View All Products</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.php">Our Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blogs.php">Blogs</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="gallery.php">Our Gallery</a>
