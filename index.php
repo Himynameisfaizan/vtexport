@@ -106,7 +106,7 @@ $about_img = !empty($db_image) ? 'admin/' . $db_image : 'assets/images/default-a
 
                     <!-- Dynamic Experience Badge (Optional: Can make this dynamic via DB too) -->
                     <div class="experience-badge d-none d-md-block">
-                        <h3>15+</h3>
+                        <h4>15+</h4>
                         <p>Years of<br>Excellence</p>
                     </div>
                 </div>
@@ -409,7 +409,7 @@ $blog_query = mysqli_query($conn, "SELECT title, slug, image, description, creat
     <div class="container">
         <div class="section-title text-center mb-5">
             <span class="sub-heading-center" style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Latest Updates</span>
-            <h2 class="fw-bold" style="color: #0a2540;">News & Articles</h2>
+            <!-- <h2 class="fw-bold" style="color: #0a2540;">News & Articles</h2> -->
             <div style="width: 50px; height: 3px; background: #d4af37; margin: 15px auto;"></div>
         </div>
 
