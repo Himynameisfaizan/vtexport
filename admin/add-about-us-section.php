@@ -11,6 +11,7 @@ $msg_class = "";
 // --- 1. HANDLE DELETE ACTION ---
 if(isset($_GET['delete_id'])) {
     $del_id = mysqli_real_escape_string($conn, $_GET['delete_id']);
+    // DB column 'image_url' use kar rahe hain
     $img_query = mysqli_query($conn, "SELECT image_url FROM about_us WHERE id='$del_id'");
     if(mysqli_num_rows($img_query) > 0) {
         $img_row = mysqli_fetch_assoc($img_query);
@@ -37,16 +38,20 @@ if(isset($_POST['submit'])) {
     
     // Image Upload Logic
     $image_name = $_POST['old_image'] ?? '';
+    
+    // Yahan $_FILES['image'] hi rahega kyunki HTML form mein name="image" hai
     if(isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp'];
-        $file_extension = strtolower(pathinfo($_FILES['image_url']['name'], PATHINFO_EXTENSION));
+        $file_extension = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
         
         if (in_array($file_extension, $allowed_extensions)) {
             $new_image = 'about_' . time() . '_' . rand(1000, 9999) . '.' . $file_extension;
             $upload_path = "uploads/";
             
             if (!is_dir($upload_path)) { mkdir($upload_path, 0777, true); }
-            if(move_uploaded_file($_FILES['image_url']['tmp_name'], $upload_path . $new_image)) {
+            
+            // Yahan bhi $_FILES['image'] chalega
+            if(move_uploaded_file($_FILES['image']['tmp_name'], $upload_path . $new_image)) {
                 if(!empty($image_name) && file_exists($upload_path . $image_name)) {
                     unlink($upload_path . $image_name);
                 }
@@ -60,7 +65,7 @@ if(isset($_POST['submit'])) {
 
     if(empty($msg)) {
         if(!empty($id)) {
-            // UPDATE
+            // UPDATE: Database column 'image_url' use ho raha hai
             $update_query = "UPDATE about_us SET 
                 title='$title', content='$content', image_url='$image_name', 
                 meta_title='$meta_title', meta_key='$meta_key', meta_desc='$meta_desc', schema_markup='$schema_markup' 
@@ -69,7 +74,7 @@ if(isset($_POST['submit'])) {
             $msg = "About section updated successfully!";
             $msg_class = "alert-success";
         } else {
-            // INSERT
+            // INSERT: Database column 'image_url' use ho raha hai
             $insert_query = "INSERT INTO about_us (title, content, image_url, meta_title, meta_key, meta_desc, schema_markup) 
                 VALUES ('$title', '$content', '$image_name', '$meta_title', '$meta_key', '$meta_desc', '$schema_markup')";
             mysqli_query($conn, $insert_query);
