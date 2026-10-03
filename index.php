@@ -1,10 +1,10 @@
 <?php
-include('includes/header.php');
+    include('includes/header.php');
 
-include 'config/connect.php';
+    include 'config/connect.php';
 
-$banner_query = mysqli_query($conn, "SELECT * FROM banners ORDER BY display_order ASC, id DESC");
-$banner_count = mysqli_num_rows($banner_query);
+    $banner_query = mysqli_query($conn, "SELECT * FROM banners ORDER BY display_order ASC, id DESC");
+    $banner_count = mysqli_num_rows($banner_query);
 ?>
 
 <!-- Hero Slider Section -->
@@ -89,22 +89,20 @@ $banner_count = mysqli_num_rows($banner_query);
 
 <!-- About Section -->
 <?php
-$about_query = mysqli_query($conn, "SELECT title, content, image_url FROM about_sections ORDER BY section_order ASC LIMIT 1");
-$about_data = mysqli_fetch_assoc($about_query);
-$db_image = $about_data['image_url'];
-$about_img = !empty($db_image) ? 'admin/' . $db_image : 'assets/images/default-about.jpg';
+    $about_query = mysqli_query($conn, "SELECT title, content, image_url FROM about_sections ORDER BY section_order ASC LIMIT 1");
+    $about_data = mysqli_fetch_assoc($about_query);
+    $db_image = $about_data['image_url'];
+    $about_img = !empty($db_image) ? 'admin/' . $db_image : 'assets/images/default-about.jpg';
 ?>
 
 <section class="about-section">
     <div class="container">
         <div class="row align-items-center">
 
-            <!-- Left Side: Premium Image Layout -->
             <div class="col-lg-6">
                 <div class="about-img-wrapper">
                     <img src="<?php echo $about_img; ?>" alt="<?php echo htmlspecialchars($about_data['title'] ?? 'About VT Export'); ?>" class="about-main-img img-fluid">
 
-                    <!-- Dynamic Experience Badge (Optional: Can make this dynamic via DB too) -->
                     <div class="experience-badge d-none d-md-block">
                         <h4>15+</h4>
                         <p>Years of<br>Excellence</p>
@@ -112,22 +110,17 @@ $about_img = !empty($db_image) ? 'admin/' . $db_image : 'assets/images/default-a
                 </div>
             </div>
 
-            <!-- Right Side: Dynamic Content -->
             <div class="col-lg-6">
                 <div class="about-content">
                     <span class="sub-heading">About Us</span>
 
-                    <!-- Dynamic Title -->
                     <h2 class="about-title">
                         <?php echo !empty($about_data['title']) ? htmlspecialchars($about_data['title']) : 'Global Leaders in Premium Quality Export'; ?>
                     </h2>
 
-                    <!-- Dynamic Content -->
                     <div class="about-desc">
                         <?php
                         if (!empty($about_data['content'])) {
-                            // Agar admin ne new lines di hain, toh usko check karke elegant format karte hain
-                            // Text se line breaks ko HTML <br> me convert kar rahe hain
                             echo nl2br(htmlspecialchars($about_data['content']));
                         } else {
                             echo "We specialize in processing and exporting premium quality products globally. Our commitment is to deliver farm-fresh, unadulterated, and richly flavored food products to international markets while maintaining the highest levels of purity.";
@@ -135,7 +128,6 @@ $about_img = !empty($db_image) ? 'admin/' . $db_image : 'assets/images/default-a
                         ?>
                     </div>
 
-                    <!-- Static Features List for Premium SEO/Trust building -->
                     <ul class="about-features">
                         <li><i class="fas fa-check-circle"></i> Ethically sourced directly from the finest farms.</li>
                         <li><i class="fas fa-check-circle"></i> Strict compliance with global safety standards.</li>
@@ -152,7 +144,7 @@ $about_img = !empty($db_image) ? 'admin/' . $db_image : 'assets/images/default-a
 
 <!-- Services Section -->
 <?php
-$services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path, slug_url FROM services ORDER BY id ASC LIMIT 3");
+    $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path, slug_url FROM services ORDER BY id ASC LIMIT 3");
 ?>
 
 <section class="services-section">
@@ -220,37 +212,32 @@ $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path
 
 <!-- Who We Are Section -->
 <?php
-$who_query = mysqli_query($conn, "SELECT title, content, image_url FROM about_us ORDER BY id DESC LIMIT 1");
-$who_data = mysqli_fetch_assoc($who_query);
+    $who_query = mysqli_query($conn, "SELECT title, content, image_url FROM about_us ORDER BY id DESC LIMIT 1");
+    $who_data = mysqli_fetch_assoc($who_query);
 
-// 🔥 FIX: Image Path Logic 🔥
-$db_who_img = $who_data['image_url'] ?? '';
-$who_img = 'assets/images/default-who.jpg'; // Fallback Image
+    $db_who_img = $who_data['image_url'] ?? '';
+    $who_img = 'assets/images/default-who.jpg'; 
 
-if (!empty($db_who_img)) {
-    // Check agar path mein 'uploads/' pehle se hai ya nahi
-    if (strpos($db_who_img, 'uploads/') !== false) {
-         $who_img = 'admin/' . $db_who_img;
-    } else {
-         $who_img = 'admin/uploads/' . $db_who_img;
+    if (!empty($db_who_img)) {
+        if (strpos($db_who_img, 'uploads/') !== false) {
+            $who_img = 'admin/' . $db_who_img;
+        } else {
+            $who_img = 'admin/uploads/' . $db_who_img;
+        }
     }
-}
 ?>
 
 <section class="who-section">
     <div class="container">
         <div class="row align-items-center g-lg-5 g-4">
             
-            <!-- Left Side: Content Box -->
             <div class="col-lg-6">
                 <h2 class="who-title">Who <span>We Are</span></h2>
                 <div style="width: 70px; height: 4px; background: #d4af37; margin-bottom: 35px; border-radius: 2px;"></div>
                 
-                <!-- Scrollable Dynamic Content Area -->
                 <div class="who-dynamic-content">
                     <?php 
                     if (!empty($who_data['content'])) {
-                        // CKEditor ka HTML properly decode karke print karna[cite: 21]
                         echo htmlspecialchars_decode($who_data['content']);
                     } else {
                         echo '<p>We are a globally recognized export house dedicated to bringing the finest quality products to the world market. Our foundation is built on trust, quality, and unmatched client satisfaction.</p>';
@@ -265,7 +252,6 @@ if (!empty($db_who_img)) {
                 </div>
             </div>
             
-            <!-- Right Side: Fixed Image Layout -->
             <div class="col-lg-6">
                 <div class="who-img-container">
                     <img src="<?php echo $who_img; ?>" alt="About VT Export" class="who-img-main" onerror="this.src='assets/images/default-who.jpg';">
@@ -282,8 +268,9 @@ if (!empty($db_who_img)) {
 
 <!-- Categories Section -->
 <?php
-$cat_query = mysqli_query($conn, "SELECT categories, slug_url, image FROM categories WHERE status=1 ORDER BY id ASC LIMIT 6");
+    $cat_query = mysqli_query($conn, "SELECT categories, slug_url, image FROM categories WHERE status=1 ORDER BY id ASC LIMIT 6");
 ?>
+
 <section class="category-section">
     <div class="container">
         <div class="section-title text-center mb-5">
@@ -382,7 +369,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url, image FROM catego
 
 <!-- Testimonials Section -->
 <?php
-$test_query = mysqli_query($conn, "SELECT name, designation, message FROM testimonials WHERE status=1 ORDER BY test_id DESC LIMIT 3");
+    $test_query = mysqli_query($conn, "SELECT name, designation, message FROM testimonials WHERE status=1 ORDER BY test_id DESC LIMIT 3");
 ?>
 
 <section class="testimonial-section">
@@ -408,7 +395,7 @@ $test_query = mysqli_query($conn, "SELECT name, designation, message FROM testim
 
 <!-- Gallery Section -->
 <?php
-$gal_query = mysqli_query($conn, "SELECT image_path, image_name FROM gallery ORDER BY ID DESC LIMIT 6");
+    $gal_query = mysqli_query($conn, "SELECT image_path, image_name FROM gallery ORDER BY ID DESC LIMIT 6");
 ?>
 
 <section class="gallery-section">
@@ -448,7 +435,7 @@ $gal_query = mysqli_query($conn, "SELECT image_path, image_name FROM gallery ORD
 
 <!-- Blog Section -->
 <?php
-$blog_query = mysqli_query($conn, "SELECT title, slug, image, description, created_at FROM blogs WHERE status=1 ORDER BY blog_id DESC LIMIT 3");
+    $blog_query = mysqli_query($conn, "SELECT title, slug, image, description, created_at FROM blogs WHERE status=1 ORDER BY blog_id DESC LIMIT 3");
 ?>
 <section class="blog-section">
     <div class="container">

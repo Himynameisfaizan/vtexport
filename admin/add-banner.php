@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
                     (banner_path, title, description, link_url, status, display_order, uploaded_at, start_date, end_date, meta_title, meta_key, meta_desc) 
                     VALUES (?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?)");
                 
-                $stmt->bind_param("ssssiissSSS", 
+                $stmt->bind_param("sssssssssss", 
                     $target_file, 
                     $title, 
                     $description, 
