@@ -4,6 +4,19 @@ require_once 'config/connect.php';
 // Active page detect karne ka logic
 $current_page = basename($_SERVER['PHP_SELF']);
 
+// --- DYNAMIC SEO FETCHING LOGIC ---
+$db_meta_query = mysqli_query($conn, "SELECT * FROM meta WHERE page_url='$current_page'");
+$db_meta = mysqli_fetch_assoc($db_meta_query);
+
+$db_schema_query = mysqli_query($conn, "SELECT schema_markup FROM page_schemas WHERE page_url='$current_page'");
+$db_schema = mysqli_fetch_assoc($db_schema_query);
+
+$final_meta_title = !empty($meta_title) ? $meta_title : ($db_meta['meta_title'] ?? 'VT Export - Premium Solutions');
+$final_meta_desc = !empty($meta_desc) ? $meta_desc : ($db_meta['meta_desc'] ?? 'VT Export is a global leader in premium exports.');
+$final_meta_key = !empty($meta_key) ? $meta_key : ($db_meta['meta_key'] ?? 'VT Export, Premium products, Global Export');
+$final_schema = !empty($custom_schema) ? $custom_schema : ($db_schema['schema_markup'] ?? '');
+// ----------------------------------
+
 $contact_query = mysqli_query($conn, "SELECT phone, email, facebook, instagram, twitter, linkdin FROM contacts ORDER BY id DESC LIMIT 1");
 $contact = mysqli_fetch_assoc($contact_query);
 
@@ -16,9 +29,13 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $meta_title ?? 'VT Export - Premium Casting Solutions'; ?></title>
+    
+    <!-- Dynamic Meta Tags -->
+    <title><?php echo htmlspecialchars($final_meta_title); ?></title>
+    <meta name="description" content="<?php echo htmlspecialchars($final_meta_desc); ?>">
+    <meta name="keywords" content="<?php echo htmlspecialchars($final_meta_key); ?>">
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +43,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="assets/style/include.css">
-    <link rel="stylesheet" href="assets/style/style.css">
+    <link rel="stylesheet" href="assets/style/style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="assets/style/about.css">
     <link rel="stylesheet" href="assets/style/product.css">
     <link rel="stylesheet" href="assets/style/service.css">
@@ -34,14 +51,14 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
     <link rel="stylesheet" href="assets/style/gallery.css">
     <link rel="stylesheet" href="assets/style/contact.css">
 
-    <!-- SEO JSON-LD Schema -->
+    <!-- Basic Organization Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "VT Export",
       "url": "<?php echo 'https://' . $_SERVER['HTTP_HOST']; ?>",
-      "logo": "<?php echo 'https://' . $_SERVER['HTTP_HOST'] . '/' . $logo_url; ?>",
+      "logo": "<?php echo 'https://' . $_SERVER['HTTP_HOST'] . '/admin/' . $logo_url; ?>",
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "<?php echo $contact['phone'] ?? ''; ?>",
@@ -55,11 +72,44 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
     }
     </script>
 
+    <!-- Dynamic Page Level Schema -->
+    <?php if(!empty($final_schema)): ?>
+        <?php echo $final_schema; ?>
+    <?php endif; ?>
+
+    <style>
+        /* White Gap Fix */
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Topbar Reset */
+        .topbar {
+            margin: 0;
+            background: #0a2540;
+            color: #fff;
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        /* Search Box Design */
+        .search-collapse-area {
+            position: absolute; 
+            top: 100%; 
+            left: 0; 
+            width: 100%; 
+            z-index: 1030;
+            background: #ffffff; 
+            border-top: 1px solid #eaeaea; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+    </style>
 </head>
 <body>
 
 <!-- Topbar Section -->
-<div class="topbar d-none d-lg-block" style="background: #0a2540; color: #fff; padding: 8px 0; font-size: 0.85rem;">
+<div class="topbar d-none d-lg-block">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-8">
@@ -88,8 +138,8 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
     </div>
 </div>
 
-<!-- Main Navbar Section -->
-<header id="main-header" style="background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.4s; position: relative;">
+<!-- Main Navbar Section (sticky-top class added for native smooth sticking) -->
+<header id="main-header" class="sticky-top" style="background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.4s;">
     <nav class="navbar navbar-expand-lg py-3">
         <div class="container position-relative">
             <!-- Dynamic Logo -->
@@ -97,7 +147,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
                 <img src="admin/uploads/<?php echo $logo_url; ?>" alt="VT Export" style="max-height: 60px;">
             </a>
             
-            <!-- 🔥 FIX: Mobile Search Icon + Menu Toggler 🔥 -->
+            <!-- Mobile Search Icon + Menu Toggler -->
             <div class="d-flex align-items-center d-lg-none gap-3">
                 <i class="fas fa-search fs-4" data-bs-toggle="collapse" data-bs-target="#searchBoxArea" style="color: #0a2540; cursor: pointer;"></i>
                 <button class="navbar-toggler border-0 px-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
@@ -145,13 +195,12 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
                 
                 <!-- Desktop Search Icon & Quote Button -->
                 <div class="d-none d-lg-flex align-items-center gap-4 ms-lg-3 mt-3 mt-lg-0">
-                    <!-- 🔥 FIX: Desktop Working Search Icon 🔥 -->
                     <i class="fas fa-search" data-bs-toggle="collapse" data-bs-target="#searchBoxArea" style="color: #0a2540; font-size: 1.2rem; cursor: pointer; transition: 0.3s;" onmouseover="this.style.color='#d4af37'" onmouseout="this.style.color='#0a2540'"></i>
                     <a href="quote.php" class="btn text-white fw-bold px-4 rounded-pill" style="background: #d4af37; border: 2px solid #d4af37;">GET A QUOTE <i class="fas fa-arrow-right ms-1"></i></a>
                 </div>
             </div>
             
-            <!-- 🔥 FIX: Working Search Form Overlay (Works for Desktop & Mobile) 🔥 -->
+            <!-- Working Search Form Overlay -->
             <div class="collapse search-collapse-area" id="searchBoxArea">
                 <div class="container py-3">
                     <form action="products.php" method="GET" class="d-flex mx-auto search-form-header" style="max-width: 600px;">
@@ -168,22 +217,15 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Sticky Header Script -->
+<!-- Search Auto-Close Script on Scroll -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const header = document.getElementById('main-header');
-        const topbar = document.querySelector('.topbar');
-        
+        const searchBox = document.getElementById('searchBoxArea');
         window.addEventListener('scroll', function() {
-            const topbarHeight = topbar ? topbar.offsetHeight : 0;
-            const headerHeight = header.offsetHeight;
-            
-            if (window.scrollY > topbarHeight) {
-                header.classList.add('is-sticky');
-                document.body.style.paddingTop = headerHeight + 'px'; 
-            } else {
-                header.classList.remove('is-sticky');
-                document.body.style.paddingTop = '0';
+            if(window.scrollY > 50 && searchBox.classList.contains('show')){
+                // Scroll karne par search box apne aap band ho jayega jisse glitch na aaye
+                let bsCollapse = new bootstrap.Collapse(searchBox, {toggle: false});
+                bsCollapse.hide();
             }
         });
     });

@@ -152,14 +152,15 @@ $about_img = !empty($db_image) ? 'admin/' . $db_image : 'assets/images/default-a
 
 <!-- Services Section -->
 <?php
-$services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path FROM services ORDER BY id ASC");
+$services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path, slug_url FROM services ORDER BY id ASC LIMIT 3");
 ?>
 
 <section class="services-section">
     <div class="container">
-        <div class="section-title">
-            <span class="sub-heading-center">What We Do</span>
-            <h2>Our Premium Services</h2>
+        <div class="section-title text-center mb-5">
+            <span class="sub-heading-center" style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Our Expertise</span>
+            <h2 class="fw-bold" style="color: #0a2540; font-size: clamp(2rem, 3vw, 2.5rem);">Our Premium Services</h2>
+            <div style="width: 60px; height: 3px; background: #d4af37; margin: 15px auto;"></div>
         </div>
 
         <div class="row g-4 justify-content-center">
@@ -179,16 +180,26 @@ $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path
             ?>
 
                     <div class="col-lg-4 col-md-6">
-                        <div class="service-card">
-                            <div class="service-icon-wrapper">
-                                <img src="<?php echo $img_src; ?>" alt="<?php echo htmlspecialchars($service['service_name']); ?>">
+                        <div class="premium-service-card">
+                            <div class="service-img-box">
+                                <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>">
+                                    <img src="<?php echo $img_src; ?>" alt="<?php echo htmlspecialchars($service['service_name']); ?>">
+                                </a>
                             </div>
-                            <h3><?php echo htmlspecialchars($service['service_name']); ?></h3>
-                            <p><?php echo htmlspecialchars($service['short_desc']); ?></p>
+                            
+                            <div class="service-content-box">
+                                <h3>
+                                    <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>" style="color: inherit; text-decoration: none;">
+                                        <?php echo htmlspecialchars($service['service_name']); ?>
+                                    </a>
+                                </h3>
+                                <p><?php echo htmlspecialchars($service['short_desc']); ?></p>
 
-                            <a href="services.php" class="btn-service-link">
-                                Explore <i class="fas fa-arrow-right"></i>
-                            </a>
+                                <!-- 🔥 FIX: Dynamic Slug Link 🔥 -->
+                                <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>" class="service-read-more">
+                                    Explore <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
@@ -199,6 +210,11 @@ $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path
             }
             ?>
         </div>
+        
+        <!-- View All Button -->
+        <div class="text-center mt-5">
+            <a href="services.php" class="btn-hero-outline" style="border: 2px solid #0a2540; color: #0a2540; padding: 12px 35px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: 0.3s;" onmouseover="this.style.background='#0a2540'; this.style.color='#fff';" onmouseout="this.style.background='transparent'; this.style.color='#0a2540';">View All Services</a>
+        </div>
     </div>
 </section>
 
@@ -207,33 +223,62 @@ $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path
 $who_query = mysqli_query($conn, "SELECT title, content, image_url FROM about_us ORDER BY id DESC LIMIT 1");
 $who_data = mysqli_fetch_assoc($who_query);
 
+// 🔥 FIX: Image Path Logic 🔥
 $db_who_img = $who_data['image_url'] ?? '';
-$who_img = !empty($db_who_img) ? 'admin/' . $db_who_img : 'assets/images/default-who.jpg';
+$who_img = 'assets/images/default-who.jpg'; // Fallback Image
+
+if (!empty($db_who_img)) {
+    // Check agar path mein 'uploads/' pehle se hai ya nahi
+    if (strpos($db_who_img, 'uploads/') !== false) {
+         $who_img = 'admin/' . $db_who_img;
+    } else {
+         $who_img = 'admin/uploads/' . $db_who_img;
+    }
+}
 ?>
 
 <section class="who-section">
-    <div class="container who-content-wrapper">
-        <div class="row align-items-center g-5">
+    <div class="container">
+        <div class="row align-items-center g-lg-5 g-4">
+            
+            <!-- Left Side: Content Box -->
             <div class="col-lg-6">
                 <h2 class="who-title">Who <span>We Are</span></h2>
-                <div style="width: 60px; height: 3px; background: #d4af37; margin-bottom: 25px;"></div>
-                <div class="who-desc">
-                    <?php echo !empty($who_data['content']) ? nl2br($who_data['content']) : 'We are a globally recognized export house dedicated to bringing the finest quality products to the world market. Our foundation is built on trust, quality, and unmatched client satisfaction.'; ?>
+                <div style="width: 70px; height: 4px; background: #d4af37; margin-bottom: 35px; border-radius: 2px;"></div>
+                
+                <!-- Scrollable Dynamic Content Area -->
+                <div class="who-dynamic-content">
+                    <?php 
+                    if (!empty($who_data['content'])) {
+                        // CKEditor ka HTML properly decode karke print karna[cite: 21]
+                        echo htmlspecialchars_decode($who_data['content']);
+                    } else {
+                        echo '<p>We are a globally recognized export house dedicated to bringing the finest quality products to the world market. Our foundation is built on trust, quality, and unmatched client satisfaction.</p>';
+                    }
+                    ?>
                 </div>
-                <a href="about.php" class="btn-hero-primary" style="background: #d4af37; color: #0a2540; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: 600;">Discover Our Journey</a>
+                
+                <div class="mt-2">
+                    <a href="about.php" class="btn fw-bold px-4 py-3" style="background: #d4af37; color: #0a2540; border-radius: 30px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.background='#fff';" onmouseout="this.style.background='#d4af37';">
+                        Discover Our Journey <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
             </div>
+            
+            <!-- Right Side: Fixed Image Layout -->
             <div class="col-lg-6">
-                <div class="who-img-box">
-                    <img src="<?php echo $who_img; ?>" alt="Who We Are">
+                <div class="who-img-container">
+                    <img src="<?php echo $who_img; ?>" alt="About VT Export" class="who-img-main" onerror="this.src='assets/images/default-who.jpg';">
+                    
                     <div class="who-floating-box d-none d-md-block">
-                        Global Reach <br> Premium Standards
+                        <i class="fas fa-gem me-2"></i> Premium Standards
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </section>
-
 
 <!-- Categories Section -->
 <?php

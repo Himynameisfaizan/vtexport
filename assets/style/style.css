@@ -24,7 +24,7 @@
 }
 
 .hero-slider .carousel-item.active img {
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
 .carousel-overlay {
@@ -350,147 +350,103 @@
 ================================ */
 
 .services-section {
-  background-color: var(--bg-light);
   padding: 90px 0;
+  background: #f8f9fc;
+}
+
+.premium-service-card {
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   position: relative;
+  z-index: 1;
+}
+.premium-service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(10, 37, 64, 0.08);
+  border-color: transparent;
 }
 
-/* Section Header Styling */
-.section-title {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.sub-heading-center {
-  color: var(--accent-gold);
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 15px;
-  display: inline-block;
-  position: relative;
-}
-
-.sub-heading-center::before,
-.sub-heading-center::after {
+/* Hover par niche aane wali Gold Line */
+.premium-service-card::after {
   content: "";
   position: absolute;
-  top: 50%;
-  width: 40px;
-  height: 2px;
-  background-color: var(--accent-gold);
-}
-
-.sub-heading-center::before {
-  left: -50px;
-}
-.sub-heading-center::after {
-  right: -50px;
-}
-
-.section-title h2 {
-  color: var(--primary-blue);
-  font-size: clamp(2rem, 3vw, 2.5rem);
-  font-weight: 700;
-}
-
-.service-card {
-  background-color: var(--bg-white);
-  padding: 40px 30px;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  text-align: center;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: #d4af37;
   transition: all 0.4s ease;
-  position: relative;
+  z-index: 2;
+}
+.premium-service-card:hover::after {
+  width: 100%;
+}
+
+/* Circle ki jagah full-width modern image */
+.service-img-box {
+  height: 220px;
   overflow: hidden;
-  z-index: 1;
+  position: relative;
+}
+.service-img-box img {
+  width: 100%;
   height: 100%;
-  border-bottom: 3px solid transparent;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.premium-service-card:hover .service-img-box img {
+  transform: scale(1.1);
 }
 
-/* Hover Animation (Lift & Gold Bottom Border) */
-.service-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(10, 37, 64, 0.1);
-  border-bottom: 3px solid var(--accent-gold);
-}
-
-/* Icon/Image Wrapper */
-.service-icon-wrapper {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 25px;
-  background-color: rgba(212, 175, 55, 0.1); /* Light gold circle */
-  border-radius: 50%;
+.service-content-box {
+  padding: 30px 25px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.4s ease;
+  flex-direction: column;
+  flex-grow: 1;
+  text-align: left;
 }
-
-.service-card:hover .service-icon-wrapper {
-  background-color: var(--primary-blue);
-}
-
-.service-icon-wrapper img {
-  width: 45px;
-  height: 45px;
-  object-fit: contain;
-  transition: all 0.4s ease;
-  /* Image ko CSS se color blend dena (Optional) */
-}
-
-/* Invert image color on hover if it's a black/dark icon */
-.service-card:hover .service-icon-wrapper img {
-  filter: brightness(0) invert(1);
-}
-
-.service-card h3 {
-  color: var(--primary-blue);
-  font-size: 1.4rem;
-  font-weight: 700;
+.service-content-box h3 {
+  color: #0a2540;
+  font-size: 1.35rem;
+  font-weight: 800;
   margin-bottom: 15px;
-  transition: color 0.3s ease;
 }
-
-.service-card:hover h3 {
-  color: var(--accent-gold);
-}
-
-.service-card p {
-  color: var(--text-muted);
-  font-size: 1rem;
+.service-content-box p {
+  color: #555;
+  font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 25px;
+  flex-grow: 1;
 }
-
-.btn-service-link {
-  color: var(--primary-blue);
-  font-weight: 600;
+.service-read-more {
+  color: #0a2540;
+  font-weight: 700;
   text-decoration: none;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  font-size: 0.95rem;
   display: inline-flex;
   align-items: center;
-  transition: color 0.3s ease;
+  transition: 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: auto;
 }
-
-.btn-service-link i {
+.service-read-more i {
   margin-left: 8px;
-  font-size: 0.85rem;
-  transition: transform 0.3s ease;
+  transition: 0.3s;
+  color: #d4af37;
 }
-
-.service-card:hover .btn-service-link {
-  color: var(--accent-gold);
+.premium-service-card:hover .service-read-more {
+  color: #d4af37;
 }
-
-.service-card:hover .btn-service-link i {
+.premium-service-card:hover .service-read-more i {
   transform: translateX(5px);
 }
-
 /* ===================== 
     Category section styling
 =====================*/
@@ -552,80 +508,143 @@
 /* ==============
     Who We Are Section Styling
 ================*/
-
 .who-section {
-  background-color: #0a2540;
   padding: 100px 0;
-  color: #ffffff;
-  position: relative;
-  overflow: hidden;
+  background-color: #051626; /* Dark Navy Background */
+  /* Subtle dot pattern for premium feel */
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px
+  );
+  background-size: 25px 25px;
 }
-/* Background Pattern/Texture */
-.who-section::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background:
-    radial-gradient(circle, rgba(212, 175, 55, 0.05) 10%, transparent 10%),
-    radial-gradient(circle, rgba(212, 175, 55, 0.05) 10%, transparent 10%);
-  background-size: 50px 50px;
-  background-position:
-    0 0,
-    25px 25px;
-  z-index: 1;
-}
-.who-content-wrapper {
-  position: relative;
-  z-index: 2;
-}
+
 .who-title {
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  font-weight: 700;
   color: #ffffff;
-  margin-bottom: 20px;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 4vw, 3.2rem);
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
 }
 .who-title span {
   color: #d4af37;
 }
-.who-desc {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.1rem;
-  line-height: 1.8;
+
+/* 🔥 MAGIC: Scrollable Content Box 🔥 */
+.who-dynamic-content {
+  max-height: 420px; /* Height fix kar di */
+  overflow-y: auto; /* Content zyada hone par scroll aayega */
+  padding-right: 20px;
   margin-bottom: 30px;
 }
 
-.who-img-box {
+/* Custom Elegant Scrollbar */
+.who-dynamic-content::-webkit-scrollbar {
+  width: 5px;
+}
+.who-dynamic-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+.who-dynamic-content::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 10px;
+}
+
+/* Styling the raw HTML tags coming from DB / CKEditor */
+.who-dynamic-content p {
+  color: #b0c4de;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.who-dynamic-content h3 {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+/* Har H3 ke aage ek Gold Icon auto-add hoga */
+.who-dynamic-content h3::before {
+  content: "\f058"; /* FontAwesome Check Circle */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  margin-right: 12px;
+  color: #d4af37;
+  font-size: 1.2rem;
+}
+
+/* 🔥 FIX: Sturdy Image Box Layout 🔥 */
+.who-img-container {
+  position: relative;
+  height: 550px;
+  width: 100%;
+  border-radius: 12px;
+  padding-left: 30px;
+  padding-top: 30px;
+}
+
+/* Gold Frame Behind Image */
+.who-img-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 30px;
+  bottom: 30px;
+  border: 3px solid #d4af37;
+  border-radius: 12px;
+  z-index: 1;
+}
+
+.who-img-main {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
   position: relative;
   z-index: 2;
-  border-radius: 8px;
-  overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
-.who-img-box img {
-  width: 100%;
-  height: 400px;
-  transition: transform 0.6s ease;
-  object-fit: cover;
-}
-.who-img-box:hover img {
-  transform: scale(1.05);
-}
+
 .who-floating-box {
   position: absolute;
   bottom: -20px;
-  right: -20px;
+  left: -10px;
   background: #d4af37;
   color: #0a2540;
-  padding: 30px;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 1.2rem;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 1.1rem;
   z-index: 3;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+@media (max-width: 991px) {
+  .who-img-container {
+    height: 400px;
+    margin-top: 50px;
+    padding: 20px 0 0 20px;
+  }
+  .who-img-container::before {
+    right: 20px;
+    bottom: 20px;
+  }
+  .who-floating-box {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -20px;
+    width: max-content;
+  }
+}
 /* ==================
     Product section styling
 =================== */
@@ -745,7 +764,7 @@
   text-align: left;
 }
 
-.prod-title a{
+.prod-title a {
   font-size: 1.15rem;
   font-weight: 700;
   color: #111;
@@ -1037,7 +1056,7 @@
   display: flex;
   flex-direction: column;
 }
-.blog-title a{
+.blog-title a {
   color: #0a2540;
   font-size: 1.25rem;
   font-weight: 700;
