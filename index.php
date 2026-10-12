@@ -35,21 +35,19 @@
                         <div class="carousel-overlay"></div>
 
                         <div class="custom-caption">
-                            <div class="container">
-                                <!-- Dynamic Title (HTML allowed if saved from editor) -->
-                                <h1><?php echo htmlspecialchars($banner['title']); ?></h1>
-                                <!-- Dynamic Description -->
-                                <p><?php echo htmlspecialchars($banner['description']); ?></p>
+                            <!-- <div class="container">
+                                <h1><?#php echo htmlspecialchars($banner['title']); ?></h1>
+                                <p><?#php echo htmlspecialchars($banner['description']); ?></p>
 
                                 <div class="hero-btns">
-                                    <?php if (!empty($banner['link_url'])): ?>
-                                        <a href="<?php echo $banner['link_url']; ?>" class="btn-hero-primary">Discover More</a>
-                                    <?php else: ?>
+                                    <?#php if (!empty($banner['link_url'])): ?>
+                                        <a href="<?#php echo $banner['link_url']; ?>" class="btn-hero-primary">Discover More</a>
+                                    <?#php else: ?>
                                         <a href="products.php" class="btn-hero-primary">Explore Products</a>
-                                    <?php endif; ?>
+                                    <?#php endif; ?>
                                     <a href="contact.php" class="btn-hero-outline">Contact Us</a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 <?php
