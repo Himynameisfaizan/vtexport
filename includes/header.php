@@ -41,7 +41,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="assets/style/include.css">
     <link rel="stylesheet" href="assets/style/style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="assets/style/about.css">

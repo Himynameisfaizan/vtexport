@@ -33,9 +33,11 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 <li><a href="add-banner.php">Add Banners</a></li>
                 <li><a href="about_us.php">Add About</a></li>
                 <li><a href="add-about-us-section.php"> About sections</a></li>
-                <li><a href="manage-meta.php"> Manage Meta</a></li>
-                <li><a href="manage-schema.php"> Manage Schema</a></li>
+                <li><a href="manage-meta.php"> Paage Meta</a></li>
+                <li><a href="manage-schema.php"> Page Schema</a></li>
                  <li><a href="add_contact.php"><span>Contact Details</span>
+                <li><a href="view-testimonials.php">View Testimonials</a></li>
+
             </a>
         </li>
             </ul>
@@ -126,6 +128,14 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 <span>Inquiries</span>
             </a>
         </li> -->
+
+         <li>
+            <a class="has-arrow" href="#"><i class="fas fa-award" style="color: #1abc9c;"></i> <span>Custom Page</span></a>
+            <ul>
+                <li><a href="add-page.php">Add Page</a></li>
+                <li><a href="view-pages.php">View Pages</a></li>
+            </ul>
+        </li>
 
         <li>
             <a href="add-gallery.php">
