@@ -1,10 +1,10 @@
 <?php
-    include('includes/header.php');
+include('includes/header.php');
 
-    include 'config/connect.php';
+include 'config/connect.php';
 
-    $banner_query = mysqli_query($conn, "SELECT * FROM banners ORDER BY display_order ASC, id DESC");
-    $banner_count = mysqli_num_rows($banner_query);
+$banner_query = mysqli_query($conn, "SELECT * FROM banners ORDER BY display_order ASC, id DESC");
+$banner_count = mysqli_num_rows($banner_query);
 ?>
 
 <!-- Hero Slider Section -->
@@ -36,15 +36,21 @@
 
                         <div class="custom-caption">
                             <!-- <div class="container">
-                                <h1><?#php echo htmlspecialchars($banner['title']); ?></h1>
-                                <p><?#php echo htmlspecialchars($banner['description']); ?></p>
+                                <h1><? #php echo htmlspecialchars($banner['title']); 
+                                    ?></h1>
+                                <p><? #php echo htmlspecialchars($banner['description']); 
+                                    ?></p>
 
                                 <div class="hero-btns">
-                                    <?#php if (!empty($banner['link_url'])): ?>
-                                        <a href="<?#php echo $banner['link_url']; ?>" class="btn-hero-primary">Discover More</a>
-                                    <?#php else: ?>
+                                    <? #php if (!empty($banner['link_url'])): 
+                                    ?>
+                                        <a href="<? #php echo $banner['link_url']; 
+                                                    ?>" class="btn-hero-primary">Discover More</a>
+                                    <? #php else: 
+                                    ?>
                                         <a href="products.php" class="btn-hero-primary">Explore Products</a>
-                                    <?#php endif; ?>
+                                    <? #php endif; 
+                                    ?>
                                     <a href="contact.php" class="btn-hero-outline">Contact Us</a>
                                 </div>
                             </div> -->
@@ -87,10 +93,10 @@
 
 <!-- About Section -->
 <?php
-    $about_query = mysqli_query($conn, "SELECT title, content, image_url FROM about_sections ORDER BY section_order ASC LIMIT 1");
-    $about_data = mysqli_fetch_assoc($about_query);
-    $db_image = $about_data['image_url'];
-    $about_img = !empty($db_image) ? 'admin/' . $db_image : 'assets/images/default-about.jpg';
+$about_query = mysqli_query($conn, "SELECT title, content, image_url FROM about_sections ORDER BY section_order ASC LIMIT 1");
+$about_data = mysqli_fetch_assoc($about_query);
+$db_image = $about_data['image_url'];
+$about_img = !empty($db_image) ? 'admin/' . $db_image : 'assets/images/default-about.jpg';
 ?>
 
 <section class="about-section">
@@ -119,18 +125,12 @@
                     <div class="about-desc">
                         <?php
                         if (!empty($about_data['content'])) {
-                            echo nl2br(htmlspecialchars($about_data['content']));
+                            echo htmlspecialchars_decode($about_data['content']);
                         } else {
                             echo "We specialize in processing and exporting premium quality products globally. Our commitment is to deliver farm-fresh, unadulterated, and richly flavored food products to international markets while maintaining the highest levels of purity.";
                         }
                         ?>
                     </div>
-
-                    <ul class="about-features">
-                        <li><i class="fas fa-check-circle"></i> Ethically sourced directly from the finest farms.</li>
-                        <li><i class="fas fa-check-circle"></i> Strict compliance with global safety standards.</li>
-                        <li><i class="fas fa-check-circle"></i> Uncompromised purity and natural quality.</li>
-                    </ul>
 
                     <a href="about.php" class="btn-about">Read More <i class="fas fa-arrow-right ms-2"></i></a>
                 </div>
@@ -142,7 +142,7 @@
 
 <!-- Services Section -->
 <?php
-    $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path, slug_url FROM services ORDER BY id ASC LIMIT 3");
+$services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path, slug_url FROM services ORDER BY id ASC LIMIT 3");
 ?>
 
 <section class="services-section">
@@ -176,7 +176,7 @@
                                     <img src="<?php echo $img_src; ?>" alt="<?php echo htmlspecialchars($service['service_name']); ?>">
                                 </a>
                             </div>
-                            
+
                             <div class="service-content-box">
                                 <h3>
                                     <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>" style="color: inherit; text-decoration: none;">
@@ -200,7 +200,7 @@
             }
             ?>
         </div>
-        
+
         <!-- View All Button -->
         <div class="text-center mt-5">
             <a href="services.php" class="btn-hero-outline" style="border: 2px solid #0a2540; color: #0a2540; padding: 12px 35px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: 0.3s;" onmouseover="this.style.background='#0a2540'; this.style.color='#fff';" onmouseout="this.style.background='transparent'; this.style.color='#0a2540';">View All Services</a>
@@ -210,31 +210,31 @@
 
 <!-- Who We Are Section -->
 <?php
-    $who_query = mysqli_query($conn, "SELECT title, content, image_url FROM about_us ORDER BY id DESC LIMIT 1");
-    $who_data = mysqli_fetch_assoc($who_query);
+$who_query = mysqli_query($conn, "SELECT title, content, image_url FROM about_us ORDER BY id DESC LIMIT 1");
+$who_data = mysqli_fetch_assoc($who_query);
 
-    $db_who_img = $who_data['image_url'] ?? '';
-    $who_img = 'assets/images/default-who.jpg'; 
+$db_who_img = $who_data['image_url'] ?? '';
+$who_img = 'assets/images/default-who.jpg';
 
-    if (!empty($db_who_img)) {
-        if (strpos($db_who_img, 'uploads/') !== false) {
-            $who_img = 'admin/' . $db_who_img;
-        } else {
-            $who_img = 'admin/uploads/' . $db_who_img;
-        }
+if (!empty($db_who_img)) {
+    if (strpos($db_who_img, 'uploads/') !== false) {
+        $who_img = 'admin/' . $db_who_img;
+    } else {
+        $who_img = 'admin/uploads/' . $db_who_img;
     }
+}
 ?>
 
 <section class="who-section">
     <div class="container">
         <div class="row align-items-center g-lg-5 g-4">
-            
+
             <div class="col-lg-6">
                 <h2 class="who-title">Who <span>We Are</span></h2>
                 <div style="width: 70px; height: 4px; background: #d4af37; margin-bottom: 35px; border-radius: 2px;"></div>
-                
+
                 <div class="who-dynamic-content">
-                    <?php 
+                    <?php
                     if (!empty($who_data['content'])) {
                         echo htmlspecialchars_decode($who_data['content']);
                     } else {
@@ -242,31 +242,31 @@
                     }
                     ?>
                 </div>
-                
+
                 <div class="mt-2">
                     <a href="about.php" class="btn fw-bold px-4 py-3" style="background: #d4af37; color: #0a2540; border-radius: 30px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.background='#fff';" onmouseout="this.style.background='#d4af37';">
                         Discover Our Journey <i class="fas fa-arrow-right ms-2"></i>
                     </a>
                 </div>
             </div>
-            
+
             <div class="col-lg-6">
                 <div class="who-img-container">
                     <img src="<?php echo $who_img; ?>" alt="About VT Export" class="who-img-main" onerror="this.src='assets/images/default-who.jpg';">
-                    
+
                     <div class="who-floating-box d-none d-md-block">
                         <i class="fas fa-gem me-2"></i> Premium Standards
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </section>
 
 <!-- Categories Section -->
 <?php
-    $cat_query = mysqli_query($conn, "SELECT categories, slug_url, image FROM categories WHERE status=1 ORDER BY id ASC LIMIT 6");
+$cat_query = mysqli_query($conn, "SELECT categories, slug_url, image FROM categories WHERE status=1 ORDER BY id ASC LIMIT 6");
 ?>
 
 <section class="category-section">
@@ -294,11 +294,11 @@
 
 <!-- Product section -->
 <?php
-    $prod_query = mysqli_query($conn, "SELECT pro_name, pro_img, slug_url FROM products WHERE status=1 ORDER BY id DESC LIMIT 8");
+$prod_query = mysqli_query($conn, "SELECT pro_name, pro_img, slug_url FROM products WHERE status=1 ORDER BY id DESC LIMIT 8");
 
-    $contact_query = mysqli_query($conn, "SELECT phone FROM contacts ORDER BY id DESC LIMIT 1");
-    $contact = mysqli_fetch_assoc($contact_query);
-    $phone_number = !empty($contact['phone']) ? $contact['phone'] : '+91-0000000000';
+$contact_query = mysqli_query($conn, "SELECT phone FROM contacts ORDER BY id DESC LIMIT 1");
+$contact = mysqli_fetch_assoc($contact_query);
+$phone_number = !empty($contact['phone']) ? $contact['phone'] : '+91-0000000000';
 ?>
 <section class="product-section">
     <div class="container">
@@ -324,18 +324,18 @@
                             <!-- Image & Badge -->
                             <div class="prod-img-wrapper">
                                 <span class="export-badge">Export Grade</span>
-                                <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>" >
-                                <img src="<?php echo $p_img; ?>" alt="<?php echo htmlspecialchars($prod['pro_name']); ?>">
+                                <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>">
+                                    <img src="<?php echo $p_img; ?>" alt="<?php echo htmlspecialchars($prod['pro_name']); ?>">
                                 </a>
                             </div>
 
                             <!-- Content -->
                             <div class="prod-body">
                                 <h3 class="prod-title">
-                                <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>" style="text-decoration: none;" >    
-                                <?php echo htmlspecialchars($prod['pro_name']); ?>
-                                </a>
-                            </h3>
+                                    <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>" style="text-decoration: none;">
+                                        <?php echo htmlspecialchars($prod['pro_name']); ?>
+                                    </a>
+                                </h3>
 
                                 <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>" class="prod-link">
                                     View Details <i class="fas fa-chevron-right"></i>
@@ -367,7 +367,7 @@
 
 <!-- Testimonials Section -->
 <?php
-    $test_query = mysqli_query($conn, "SELECT name, designation, message FROM testimonials WHERE status=1 ORDER BY test_id DESC LIMIT 3");
+$test_query = mysqli_query($conn, "SELECT name, designation, message FROM testimonials WHERE status=1 ORDER BY test_id DESC LIMIT 3");
 ?>
 
 <section class="testimonial-section">
@@ -393,7 +393,7 @@
 
 <!-- Gallery Section -->
 <?php
-    $gal_query = mysqli_query($conn, "SELECT image_path, image_name FROM gallery ORDER BY ID DESC LIMIT 6");
+$gal_query = mysqli_query($conn, "SELECT image_path, image_name FROM gallery ORDER BY ID DESC LIMIT 6");
 ?>
 
 <section class="gallery-section">
@@ -433,7 +433,7 @@
 
 <!-- Blog Section -->
 <?php
-    $blog_query = mysqli_query($conn, "SELECT title, slug, image, description, created_at FROM blogs WHERE status=1 ORDER BY blog_id DESC LIMIT 3");
+$blog_query = mysqli_query($conn, "SELECT title, slug, image, description, created_at FROM blogs WHERE status=1 ORDER BY blog_id DESC LIMIT 3");
 ?>
 <section class="blog-section">
     <div class="container">

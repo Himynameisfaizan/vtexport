@@ -16,7 +16,7 @@ $contact = mysqli_fetch_assoc($contact_query);
             <!-- Column 1: About & Logo -->
             <div class="col-lg-4 col-md-6">
                 <img src="admin/uploads/<?php echo $footer_logo; ?>" alt="VT Export Footer Logo" class="footer-logo">
-                <p class="footer-desc">Delivering premium quality export products worldwide. We bridge the gap between global markets and ethically sourced agricultural excellence.</p>
+                <p class="footer-desc">Your Partner for Industrial Piping Products, Pipe Repairing Solutions and Metal Casting Components.</p>
                 <div class="footer-social">
                     <?php if(!empty($contact['facebook'])): ?><a href="<?php echo $contact['facebook']; ?>" target="_blank"><i class="fab fa-facebook-f"></i></a><?php endif; ?>
                     <?php if(!empty($contact['twitter'])): ?><a href="<?php echo $contact['twitter']; ?>" target="_blank"><i class="fab fa-twitter"></i></a><?php endif; ?>
