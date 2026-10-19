@@ -123,8 +123,8 @@ include 'includes/breadcrumb.php';
                         <span>(<?php echo $total_reviews; ?> Reviews)</span>
                     </div>
 
-                    <div class="short-desc">
-                        <?php echo !empty($product['short_desc']) ? nl2br(htmlspecialchars($product['short_desc'])) : 'Premium export quality product, processed and packaged under strict international guidelines to ensure maximum freshness and authenticity.'; ?>
+                   <div class="short-desc">
+                        <?php echo !empty($product['short_desc']) ? htmlspecialchars_decode($product['short_desc']) : 'Premium export quality product, processed and packaged under strict international guidelines to ensure maximum freshness and authenticity.'; ?>
                     </div>
 
                     <div class="action-btns">

@@ -214,7 +214,7 @@ $who_query = mysqli_query($conn, "SELECT title, content, image_url FROM about_us
 $who_data = mysqli_fetch_assoc($who_query);
 
 $db_who_img = $who_data['image_url'] ?? '';
-$who_img = 'assets/images/default-who.jpg';
+$who_img = 'assets/images/vite.png';
 
 if (!empty($db_who_img)) {
     if (strpos($db_who_img, 'uploads/') !== false) {
