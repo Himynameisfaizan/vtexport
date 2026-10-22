@@ -39,6 +39,40 @@ $prod_query = mysqli_query($conn, "SELECT pro_name, pro_img, slug_url FROM produ
 $categories_query = mysqli_query($conn, "SELECT cate_id, categories FROM categories WHERE status = 1 ORDER BY categories ASC");
 ?>
 
+<style>
+     /* Sidebar Search */
+    .sidebar-search-form {
+        display: flex;
+    }
+
+    .sidebar-search-form input {
+        border: 2px solid #e2e8f0;
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+        padding: 11px 15px;
+        font-size: 0.95rem;
+    }
+
+    .sidebar-search-form input:focus {
+        box-shadow: none;
+        border-color: var(--primary-blue);
+    }
+
+    .sidebar-search-form button {
+        background: var(--primary-blue);
+        color: #fff;
+        border: none;
+        padding: 0 20px;
+        border-radius: 0 8px 8px 0;
+        transition: 0.3s;
+    }
+
+    .sidebar-search-form button:hover {
+        background: var(--accent-gold);
+        color: var(--primary-blue);
+    }
+</style>
+
 <section class="products-page-section">
     <div class="container-ng">
         <div class="row g-5">
@@ -48,19 +82,20 @@ $categories_query = mysqli_query($conn, "SELECT cate_id, categories FROM categor
                 <div class="sidebar-wrapper">
 
                     <!-- Search Box -->
-                    <h3 class="sidebar-title">Search</h3>
-                    <form action="products.php" method="GET" class="search-form">
-                        <!-- Preserve category filter if exists -->
-                        <?php if (!empty($cat_filter)): ?>
-                            <input type="hidden" name="category" value="<?php echo htmlspecialchars($cat_filter); ?>">
+                     <h4 class="widget-title">Search Products</h4>
+                    <form action="category.php" method="GET" class="sidebar-search-form">
+                        <?php if (!empty($slug)): ?>
+                            <input type="hidden" name="slug" value="<?php echo htmlspecialchars($slug); ?>">
                         <?php endif; ?>
-
-                        <input type="text" name="search" class="search-input" placeholder="Find a product..." value="<?php echo htmlspecialchars($search); ?>">
-                        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                        <?php if (!empty($sub_slug)): ?>
+                            <input type="hidden" name="sub" value="<?php echo htmlspecialchars($sub_slug); ?>">
+                        <?php endif; ?>
+                        <input type="text" name="search" class="form-control" placeholder="Search product name..." value="<?php echo htmlspecialchars($search); ?>" required>
+                        <button type="submit" title="Search"><i class="fas fa-search"></i></button>
                     </form>
 
                     <!-- Category Filter -->
-                    <h3 class="sidebar-title">Categories</h3>
+                    <h3 class="sidebar-title my-4">Categories</h3>
                     <ul class="cat-list">
                         <li>
                             <a href="products.php" class="cat-link <?php echo empty($cat_filter) ? 'active' : ''; ?>">

@@ -32,7 +32,7 @@ $banner_count = mysqli_num_rows($banner_query);
                         <!-- Ensure correct image path based on your admin panel uploads -->
                         <img src="admin/<?php echo $banner['banner_path']; ?>" alt="<?php echo !empty($banner['meta_title']) ? $banner['meta_title'] : $banner['title']; ?>">
 
-                        <div class="carousel-overlay"></div>
+                        <!-- <div class="carousel-overlay"></div> -->
 
                         <div class="custom-caption">
                             <!-- <div class="container">
