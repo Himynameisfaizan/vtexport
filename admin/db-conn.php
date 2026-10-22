@@ -7,14 +7,14 @@ ini_set('display_errors', 1);
 
 
 // Database Configuration
-$local = true; 
+$local = true;
 
 if ($local) {
     $host = 'localhost';
     $username = 'root';
     $password = '';
     $dbName = 'vtexport';
-    $site = "http://localhost/office_php_project/vtexport/";
+    $site = "http://localhost/projects/vtexport/";
 } else {
     $host = 'localhost';
     $username = 'u799879276_bhagirath_db';
@@ -36,5 +36,3 @@ if ($conn->connect_error) {
 
 // Optional: Set Character Encoding to UTF-8
 $conn->set_charset("utf8");
-
-?>
