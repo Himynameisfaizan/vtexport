@@ -47,15 +47,16 @@ if (isset($_POST["add-categories"])) {
         }
     }
 
-    $cate_id = mt_rand(11111, 99999);$cate_name = mysqli_real_escape_string($conn,$_POST["cate_name"]);
-    $meta_title = mysqli_real_escape_string($conn,$_POST["meta_title"]);
-    $meta_key = mysqli_real_escape_string($conn,$_POST["meta_key"]);
-    $meta_desc = mysqli_real_escape_string($conn,$_POST["meta_desc"]);
-    
+    $cate_id = mt_rand(11111, 99999);
+    $cate_name = mysqli_real_escape_string($conn, $_POST["cate_name"]);
+    $meta_title = mysqli_real_escape_string($conn, $_POST["meta_title"]);
+    $meta_key = mysqli_real_escape_string($conn, $_POST["meta_key"]);
+    $meta_desc = mysqli_real_escape_string($conn, $_POST["meta_desc"]);
+
     // --> Naya Schema variable yahan add karein <--
     $schema_markup = mysqli_real_escape_string($conn, trim($_POST['schema_markup'] ?? ''));
-    
-    $slug_url = strtolower(str_replace(" ", "-", $cate_name)); 
+
+    $slug_url = strtolower(str_replace(" ", "-", $cate_name));
 
     $sql = "INSERT INTO `categories` (`cate_id`, `categories`, `meta_title`, `meta_desc`, `meta_key`, `schema_markup`, `image`, `slug_url`, `status`, `added_on`) 
             VALUES ('$cate_id', '$cate_name', '$meta_title', '$meta_desc', '$meta_key', '$schema_markup', '$fileName', '$slug_url', 1, NOW())";
@@ -122,31 +123,36 @@ if (isset($_POST["add-sub-categories"])) {
         // or empty string if you wish
     }
 
-$cate_id    = mt_rand(11111, 99999);$cate_name  = mysqli_real_escape_string($conn,$_POST["cate_name"]);
-    $meta_title = mysqli_real_escape_string($conn,$_POST["meta_title"]);
-    $meta_key   = mysqli_real_escape_string($conn,$_POST["meta_key"]);
-    $meta_desc  = mysqli_real_escape_string($conn,$_POST["meta_desc"]);
-    
+    $cate_id    = mt_rand(11111, 99999);
+    $cate_name  = mysqli_real_escape_string($conn, $_POST["cate_name"]);
+    $meta_title = mysqli_real_escape_string($conn, $_POST["meta_title"]);
+    $meta_key   = mysqli_real_escape_string($conn, $_POST["meta_key"]);
+    $meta_desc  = mysqli_real_escape_string($conn, $_POST["meta_desc"]);
+
     // --> Naya Schema variable yahan add karein <--
     $schema_markup = mysqli_real_escape_string($conn, trim($_POST['schema_markup'] ?? ''));
-    
-    $added_on   = date('M d, Y');$parent_id  = mysqli_real_escape_string($conn,$_POST['parent_id']);
+
+    $added_on   = date('M d, Y');
+    $parent_id  = mysqli_real_escape_string($conn, $_POST['parent_id']);
     $slug_url   = strtolower(str_replace(" ", "-", $cate_name));
+    
 
     $sql = "INSERT INTO `sub_categories`( `parent_id`,`cate_id`, `categories`, `meta_title`, `meta_desc`, `meta_key`, `schema_markup`, `sub_cat_img`, `slug_url`, `status`, `added_on`) 
             VALUES ('$parent_id','$cate_id','$cate_name','$meta_title','$meta_desc','$meta_key', '$schema_markup', '$uploadedImage', '$slug_url', 1, '$added_on')";
     $check = mysqli_query($conn, $sql);
     if ($check) {
 ?>
-        <script type="text/javascript">
-            alert('Inserted Successfully!');
-            window.location.href = "view-sub-categories.php";
-        </script>
-    <?php
+<script type="text/javascript">
+alert('Inserted Successfully!');
+window.location.href = "view-sub-categories.php";
+</script>
+<?php
     } else {
         echo "Error inserting record: " . mysqli_error($conn);
     }
 }
+
+
 
 function get_Category()
 {
@@ -223,15 +229,36 @@ VALUES ('$pro_id', '$pro_name', '$brand_name','$pro_cate', '$pro_sub_cate', '$sh
 
     // Execute the query
     $check = mysqli_query($conn, $sql);
+
     if ($check) {
+        $last_product_id = mysqli_insert_id($conn); // Naye add hue product ki Primary ID nikal li
+
+        // --- NEW: Gallery Images Upload Logic ---
+        if (isset($_FILES['gallery_images']['name'][0]) && !empty($_FILES['gallery_images']['name'][0])) {
+            foreach ($_FILES['gallery_images']['tmp_name'] as $key => $tmp_name) {
+                if ($_FILES['gallery_images']['error'][$key] === 0) {
+                    $gal_file_name = $_FILES['gallery_images']['name'][$key];
+                    $gal_file_ext = strtolower(pathinfo($gal_file_name, PATHINFO_EXTENSION));
+
+                    $gal_new_name = 'gallery_' . time() . '_' . uniqid() . '.' . $gal_file_ext;
+                    $gal_destination = $folder . $gal_new_name;
+
+                    if (move_uploaded_file($tmp_name, $gal_destination)) {
+                        $gal_sql = "INSERT INTO `product_images` (`product_id`, `image_path`) VALUES ('$last_product_id', '$gal_new_name')";
+                        mysqli_query($conn, $gal_sql);
+                    }
+                }
+            }
+        }
+        // ----------------------------------------
     ?>
-        <script type="text/javascript">
-            alert('Inserted Successfully!');
-            window.location.href = "add-products.php";
-        </script>
-    <?php
+<script type="text/javascript">
+alert('Inserted Successfully!');
+window.location.href = "add-products.php";
+</script>
+<?php
     } else {
-        echo "Error: " . mysqli_error($conn);  // Optional: Display any error message from MySQL
+        echo "Error: " . mysqli_error($conn);
     }
 }
 
@@ -286,14 +313,12 @@ function get_Sub_Category()
     }
 }
 
-
-
 if (isset($_POST['cate_id'])) {
     $p_id = $_POST['cate_id'];
     $sql = "SELECT * FROM `sub_categories` where `parent_id` = '$p_id' ORDER BY id DESC";
     $check = mysqli_query($conn, $sql);
     ?>
-    <option value="">Select</option>
+<option value="">Select</option>
 <?php
     while ($result = mysqli_fetch_assoc($check)) {
         echo "<option value=" . $result['cate_id'] . ">" . $result['categories'] . "</option>";
@@ -338,7 +363,7 @@ function get_sub_category_by_id($cat_id)
 // TESTIMONIAL AJAX LOGIC (Add & Update)
 // =========================================================================
 if (isset($_POST['action']) && ($_POST['action'] === 'add-testimonial' || $_POST['action'] === 'update-testimonial')) {
-    
+
     // JSON response setup
     header('Content-Type: application/json');
     $response = ['status' => 'error', 'message' => 'Something went wrong.'];
@@ -354,22 +379,22 @@ if (isset($_POST['action']) && ($_POST['action'] === 'add-testimonial' || $_POST
     $featured = isset($_POST['featured']) && $_POST['featured'] == 'on' ? 1 : 0;
     $display_order = intval($_POST['display_order'] ?? 0);
     $status = 1; // Default Active
-    
+
     $imageName = "";
 
     // Image Upload Logic
     if (isset($_FILES['client_photo']) && $_FILES['client_photo']['error'] === UPLOAD_ERR_OK) {
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
         $fileExtension = strtolower(pathinfo($_FILES['client_photo']['name'], PATHINFO_EXTENSION));
-        
+
         if (in_array($fileExtension, $allowedExtensions)) {
             $imageName = time() . '_' . rand(1000, 9999) . '.' . $fileExtension;
             $uploadDir = 'assets/img/uploads/';
-            
+
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
-            
+
             move_uploaded_file($_FILES['client_photo']['tmp_name'], $uploadDir . $imageName);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Invalid image format.']);
@@ -381,17 +406,16 @@ if (isset($_POST['action']) && ($_POST['action'] === 'add-testimonial' || $_POST
         // INSERT QUERY
         $sql = "INSERT INTO testimonials (name, designation, client_company, image, message, rating, project_name, project_date, featured, display_order, status, created_at) 
                 VALUES ('$client_name', '$client_title', '$client_company', " . ($imageName ? "'$imageName'" : "NULL") . ", '$testimonial_text', '$rating', '$project_name', " . ($project_date ? "'$project_date'" : "NULL") . ", '$featured', '$display_order', '$status', NOW())";
-        
+
         if (mysqli_query($conn, $sql)) {
             $response = ['status' => 'success', 'message' => 'Testimonial added successfully!'];
         } else {
             $response = ['status' => 'error', 'message' => 'Database Error: ' . mysqli_error($conn)];
         }
-
     } elseif ($_POST['action'] === 'update-testimonial') {
         // UPDATE QUERY
         $test_id = intval($_POST['testimonial_id']);
-        
+
         // Agar nayi image upload hui hai toh query me update karo, warna purani rehne do
         $imageUpdateStr = $imageName ? "image = '$imageName'," : "";
 

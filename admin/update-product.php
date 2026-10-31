@@ -104,13 +104,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update-product'])) {
               WHERE pro_id = '$pro_id'";
 
     if (mysqli_query($conn, $query)) {
-        // Success
+        
+        $product_primary_id = intval($_POST['id']); // products table ki primary id
+        $upload_dir = "assets/img/uploads/";
+
+        // --- 1. Delete Selected Gallery Images ---
+        if (isset($_POST['delete_gallery']) && is_array($_POST['delete_gallery'])) {
+            foreach ($_POST['delete_gallery'] as $del_gal_id) {
+                $del_gal_id = intval($del_gal_id);
+                $path_to_delete = $_POST['existing_gallery_paths'][$del_gal_id] ?? '';
+                
+                // Server (folder) se delete
+                if (!empty($path_to_delete) && file_exists($upload_dir . $path_to_delete)) {
+                    unlink($upload_dir . $path_to_delete);
+                }
+                
+                // Database se delete
+                mysqli_query($conn, "DELETE FROM product_images WHERE id = '$del_gal_id'");
+            }
+        }
+
+        // --- 2. Upload New Gallery Images ---
+        if (!empty($_FILES['gallery_images']['name'][0])) {
+            foreach ($_FILES['gallery_images']['tmp_name'] as $key => $tmp_name) {
+                if ($_FILES['gallery_images']['error'][$key] === 0) {
+                    $file_ext = pathinfo($_FILES['gallery_images']['name'][$key], PATHINFO_EXTENSION);
+                    $new_file_name = 'gallery_' . time() . '_' . uniqid() . '.' . strtolower($file_ext);
+                    $destination = $upload_dir . $new_file_name;
+
+                    if (move_uploaded_file($tmp_name, $destination)) {
+                        mysqli_query($conn, "INSERT INTO product_images (product_id, image_path) VALUES ('$product_primary_id', '$new_file_name')");
+                    }
+                }
+            }
+        }
+        
+        // Success Redirect
         header("Location: edit_products.php?edit_product_details=$pro_id&success=1");
         exit();
     } else {
-        // Error
-        echo "Error: " . mysqli_error($conn);
-        // You might want to redirect with an error message
+        // Error Redirect
         header("Location: edit_products.php?edit_product_details=$pro_id&error=1");
         exit();
     }
