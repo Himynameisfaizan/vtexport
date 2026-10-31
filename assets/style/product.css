@@ -34,11 +34,13 @@ body {
 
   /* Buttons ko narrow screen par perfectly align karna */
   .prod-actions {
-    gap: 8px; /* Mobile par buttons ke beech ka gap thoda kam kiya */
+    gap: 8px;
+    /* Mobile par buttons ke beech ka gap thoda kam kiya */
   }
 
   .btn-inquire {
-    font-size: 0.85rem; /* Text thoda chhota kiya taaki cut na ho */
+    font-size: 0.85rem;
+    /* Text thoda chhota kiya taaki cut na ho */
     padding: 10px;
   }
 
@@ -67,7 +69,8 @@ body {
   border: 1px solid var(--card-border);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
   position: sticky;
-  top: 100px; /* Sticky effect on scroll */
+  top: 100px;
+  /* Sticky effect on scroll */
 }
 
 .sidebar-title {
@@ -87,6 +90,7 @@ body {
   position: relative;
   margin-bottom: 40px;
 }
+
 .search-input {
   width: 100%;
   padding: 12px 20px;
@@ -96,11 +100,13 @@ body {
   font-size: 0.95rem;
   transition: all 0.3s ease;
 }
+
 .search-input:focus {
   border-color: var(--accent-gold);
   outline: none;
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
 }
+
 .search-btn {
   position: absolute;
   right: 5px;
@@ -117,6 +123,7 @@ body {
   justify-content: center;
   transition: all 0.3s ease;
 }
+
 .search-btn:hover {
   background: var(--accent-gold);
   color: var(--primary-blue);
@@ -128,9 +135,11 @@ body {
   padding: 0;
   margin: 0;
 }
+
 .cat-list li {
   margin-bottom: 10px;
 }
+
 .cat-link {
   display: flex;
   align-items: center;
@@ -142,18 +151,21 @@ body {
   transition: all 0.3s ease;
   background: transparent;
 }
+
 .cat-link i {
   margin-right: 10px;
   color: var(--accent-gold);
   font-size: 0.8rem;
   transition: transform 0.3s ease;
 }
+
 .cat-link:hover,
 .cat-link.active {
   background: rgba(10, 37, 64, 0.05);
   color: var(--primary-blue);
   padding-left: 18px;
 }
+
 .cat-link:hover i,
 .cat-link.active i {
   transform: scale(1.2);
@@ -170,11 +182,13 @@ body {
   flex-direction: column;
   height: 100%;
 }
+
 .prod-card:hover {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
   border-color: #dcdcdc;
   transform: translateY(-5px);
 }
+
 .prod-img-wrapper {
   position: relative;
   height: 220px;
@@ -182,12 +196,14 @@ body {
   overflow: hidden;
   background: #fff;
 }
+
 .prod-img-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
 }
+
 .prod-card:hover .prod-img-wrapper img {
   transform: scale(1.08);
 }
@@ -214,12 +230,14 @@ body {
   flex-grow: 1;
   text-align: left;
 }
+
 .prod-title a {
   font-size: 1.15rem;
   font-weight: 700;
   color: #111;
   margin-bottom: 18px;
 }
+
 .prod-link {
   font-size: 0.9rem;
   color: #555;
@@ -230,14 +248,17 @@ body {
   align-items: center;
   transition: color 0.3s ease;
 }
+
 .prod-link i {
   font-size: 0.75rem;
   margin-left: 5px;
   transition: transform 0.3s ease;
 }
+
 .prod-card:hover .prod-link {
   color: #741b38;
 }
+
 .prod-card:hover .prod-link i {
   transform: translateX(4px);
 }
@@ -247,6 +268,7 @@ body {
   gap: 12px;
   margin-top: auto;
 }
+
 .btn-call {
   width: 42px;
   height: 42px;
@@ -260,15 +282,18 @@ body {
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
+
 .btn-call i {
   font-size: 1.1rem;
   transform: rotate(90deg);
 }
+
 .btn-call:hover {
   background-color: #741b38 !important;
   color: #fff !important;
   box-shadow: 0 5px 15px rgba(116, 27, 56, 0.2);
 }
+
 .btn-inquire {
   flex-grow: 1;
   height: 42px;
@@ -284,6 +309,7 @@ body {
   font-size: 0.95rem;
   transition: all 0.3s ease;
 }
+
 .btn-inquire:hover {
   background-color: #0a2540 !important;
   color: #ffffff !important;
@@ -299,6 +325,7 @@ body {
   list-style: none;
   padding: 0;
 }
+
 .premium-pagination li a {
   display: flex;
   align-items: center;
@@ -313,6 +340,7 @@ body {
   border: 1px solid var(--card-border);
   transition: all 0.3s ease;
 }
+
 .premium-pagination li a:hover,
 .premium-pagination li.active a {
   background: var(--accent-gold);
@@ -339,11 +367,13 @@ body {
   text-align: center;
   position: relative;
 }
+
 .main-img-box img {
   width: 100%;
   max-height: 500px;
   object-fit: contain;
 }
+
 .badge-export {
   position: absolute;
   top: 20px;
@@ -363,12 +393,14 @@ body {
   position: sticky;
   top: 100px;
 }
+
 .prod-info-title {
   color: var(--primary-blue);
   font-size: clamp(2rem, 3vw, 2.8rem);
   font-weight: 800;
   margin-bottom: 15px;
 }
+
 .title-line {
   width: 60px;
   height: 3px;
@@ -384,6 +416,7 @@ body {
   align-items: center;
   gap: 10px;
 }
+
 .rating-wrap span {
   color: var(--text-muted);
   font-size: 0.9rem;
@@ -403,6 +436,7 @@ body {
   flex-wrap: wrap;
   margin-bottom: 40px;
 }
+
 .btn-quote {
   background: var(--primary-blue);
   color: #fff;
@@ -417,6 +451,7 @@ body {
   flex: 1;
   text-align: center;
 }
+
 .btn-quote:hover {
   background: transparent;
   color: var(--primary-blue);
@@ -438,6 +473,7 @@ body {
   gap: 10px;
   justify-content: center;
 }
+
 .btn-whatsapp:hover {
   background: transparent;
   color: #25d366;
@@ -450,6 +486,7 @@ body {
   border-radius: 8px;
   padding: 25px;
 }
+
 .highlights-box ul {
   list-style: none;
   padding: 0;
@@ -458,6 +495,7 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
+
 .highlights-box li {
   display: flex;
   align-items: center;
@@ -465,6 +503,7 @@ body {
   color: var(--primary-blue);
   font-weight: 500;
 }
+
 .highlights-box li i {
   color: var(--accent-gold);
 }
@@ -474,12 +513,14 @@ body {
   padding: 60px 0;
   background: var(--bg-light);
 }
+
 .nav-tabs-custom {
   border-bottom: 2px solid #eaeaea;
   margin-bottom: 30px;
   display: flex;
   gap: 30px;
 }
+
 .nav-tabs-custom button {
   background: none;
   border: none;
@@ -490,9 +531,11 @@ body {
   position: relative;
   transition: all 0.3s ease;
 }
+
 .nav-tabs-custom button.active {
   color: var(--primary-blue);
 }
+
 .nav-tabs-custom button::after {
   content: "";
   position: absolute;
@@ -503,6 +546,7 @@ body {
   background: var(--accent-gold);
   transition: width 0.3s ease;
 }
+
 .nav-tabs-custom button.active::after {
   width: 100%;
 }
@@ -516,15 +560,18 @@ body {
   margin-bottom: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
+
 .review-card .stars {
   color: var(--accent-gold);
   margin-bottom: 10px;
 }
+
 .review-card h5 {
   color: var(--primary-blue);
   font-weight: 700;
   margin-bottom: 5px;
 }
+
 .review-card p {
   color: var(--text-muted);
   margin: 0;
@@ -547,6 +594,49 @@ body {
   }
 }
 
+
+/* <!-- Gallery Interaction Script & CSS --> */
+
+/* Custom Scrollbar for Gallery Slider */
+.custom-gallery-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.custom-gallery-scrollbar::-webkit-scrollbar-track {
+  background: #f1f3f5;
+  border-radius: 10px;
+}
+
+.custom-gallery-scrollbar::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 10px;
+}
+
+.custom-gallery-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #0a2540;
+}
+
+/* Thumbnail Hover Effect */
+.gallery-thumbnail:hover {
+  border-color: #d4af37 !important;
+  transform: translateY(-2px);
+}
+
+.custom-gallery-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge ke liye */
+        scrollbar-width: none;  /* Firefox ke liye */
+    }
+    
+    .custom-gallery-scrollbar::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, aur Opera ke liye */
+    }
+
+    /* Thumbnail Hover Effect */
+    .gallery-thumbnail:hover {
+        border-color: #d4af37 !important;
+        transform: translateY(-2px);
+    }
+
 /* ====================
     CATEGORY PAGE STYLING
 ======================== */
@@ -566,6 +656,7 @@ body {
   flex-direction: column;
   height: 100%;
 }
+
 .prod-card:hover {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
   border-color: #dcdcdc;
@@ -579,12 +670,14 @@ body {
   overflow: hidden;
   background: #fff;
 }
+
 .prod-img-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
 }
+
 .prod-card:hover .prod-img-wrapper img {
   transform: scale(1.08);
 }
@@ -611,12 +704,14 @@ body {
   flex-grow: 1;
   text-align: left;
 }
-.prod-title a{
+
+.prod-title a {
   font-size: 1.15rem;
   font-weight: 700;
   color: #111;
   margin-bottom: 18px;
 }
+
 .prod-link {
   font-size: 0.9rem;
   color: #555;
@@ -627,14 +722,17 @@ body {
   align-items: center;
   transition: color 0.3s ease;
 }
+
 .prod-link i {
   font-size: 0.75rem;
   margin-left: 5px;
   transition: transform 0.3s ease;
 }
+
 .prod-card:hover .prod-link {
   color: #741b38;
 }
+
 .prod-card:hover .prod-link i {
   transform: translateX(4px);
 }
@@ -644,6 +742,7 @@ body {
   gap: 12px;
   margin-top: auto;
 }
+
 .btn-call {
   width: 42px;
   height: 42px;
@@ -657,10 +756,12 @@ body {
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
+
 .btn-call i {
   font-size: 1.1rem;
   transform: rotate(90deg);
 }
+
 .btn-call:hover {
   background-color: #741b38 !important;
   color: #fff !important;
@@ -682,6 +783,7 @@ body {
   font-size: 0.95rem;
   transition: all 0.3s ease;
 }
+
 .btn-inquire:hover {
   background-color: #0a2540 !important;
   color: #ffffff !important;
