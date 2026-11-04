@@ -14,7 +14,10 @@ $banner_count = mysqli_num_rows($banner_query);
         <!-- Dynamic Indicators -->
         <div class="carousel-indicators">
             <?php for ($i = 0; $i < $banner_count; $i++): ?>
-                <button type="button" data-bs-target="#premiumHeroCarousel" data-bs-slide-to="<?php echo $i; ?>" class="<?php echo ($i == 0) ? 'active' : ''; ?>" aria-current="<?php echo ($i == 0) ? 'true' : 'false'; ?>" aria-label="Slide <?php echo $i + 1; ?>"></button>
+            <button type="button" data-bs-target="#premiumHeroCarousel" data-bs-slide-to="<?php echo $i; ?>"
+                class="<?php echo ($i == 0) ? 'active' : ''; ?>"
+                aria-current="<?php echo ($i == 0) ? 'true' : 'false'; ?>"
+                aria-label="Slide <?php echo $i + 1; ?>"></button>
             <?php endfor; ?>
         </div>
 
@@ -28,14 +31,15 @@ $banner_count = mysqli_num_rows($banner_query);
                 while ($banner = mysqli_fetch_assoc($banner_query)):
                     // Making part of title Gold randomly or specifically if you format it. For now, simple output.
             ?>
-                    <div class="carousel-item <?php echo $isActive ? 'active' : ''; ?>">
-                        <!-- Ensure correct image path based on your admin panel uploads -->
-                        <img src="admin/<?php echo $banner['banner_path']; ?>" alt="<?php echo !empty($banner['meta_title']) ? $banner['meta_title'] : $banner['title']; ?>">
+            <div class="carousel-item <?php echo $isActive ? 'active' : ''; ?>">
+                <!-- Ensure correct image path based on your admin panel uploads -->
+                <img src="admin/<?php echo $banner['banner_path']; ?>"
+                    alt="<?php echo !empty($banner['meta_title']) ? $banner['meta_title'] : $banner['title']; ?>">
 
-                        <!-- <div class="carousel-overlay"></div> -->
+                <!-- <div class="carousel-overlay"></div> -->
 
-                        <div class="custom-caption">
-                            <!-- <div class="container">
+                <div class="custom-caption">
+                    <!-- <div class="container">
                                 <h1><? #php echo htmlspecialchars($banner['title']); 
                                     ?></h1>
                                 <p><? #php echo htmlspecialchars($banner['description']); 
@@ -54,37 +58,40 @@ $banner_count = mysqli_num_rows($banner_query);
                                     <a href="contact.php" class="btn-hero-outline">Contact Us</a>
                                 </div>
                             </div> -->
-                        </div>
-                    </div>
-                <?php
+                </div>
+            </div>
+            <?php
                     $isActive = false;
                 endwhile;
             else:
                 ?>
-                <!-- Fallback Static Slide in case DB has no banners -->
-                <div class="carousel-item active">
-                    <img src="assets/images/default-hero.jpg" alt="VT Export Default">
-                    <div class="carousel-overlay"></div>
-                    <div class="custom-caption">
-                        <div class="container">
-                            <h1>Premium <span class="text-gold">Quality</span> Casting Solutions</h1>
-                            <p>Delivering heavy-duty, precision-engineered industrial components built to withstand extreme environments.</p>
-                            <div class="hero-btns">
-                                <a href="products.php" class="btn-hero-primary">Our Products</a>
-                                <a href="quote.php" class="btn-hero-outline">Get Quote</a>
-                            </div>
+            <!-- Fallback Static Slide in case DB has no banners -->
+            <div class="carousel-item active">
+                <img src="assets/images/default-hero.jpg" alt="VT Export Default">
+                <div class="carousel-overlay"></div>
+                <div class="custom-caption">
+                    <div class="container">
+                        <h1>Premium <span class="text-gold">Quality</span> Casting Solutions</h1>
+                        <p>Delivering heavy-duty, precision-engineered industrial components built to withstand extreme
+                            environments.</p>
+                        <div class="hero-btns">
+                            <a href="products.php" class="btn-hero-primary">Our Products</a>
+                            <a href="quote.php" class="btn-hero-outline">Get Quote</a>
                         </div>
                     </div>
                 </div>
+            </div>
             <?php endif; ?>
         </div>
 
         <!-- Carousel Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#premiumHeroCarousel" data-bs-slide="prev" style="width: 5%; opacity: 0;">
+        <button class="carousel-control-prev" type="button" data-bs-target="#premiumHeroCarousel" data-bs-slide="prev"
+            style="width: 5%; opacity: 0;">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#premiumHeroCarousel" data-bs-slide="next" style="width: 5%; opacity: 0;">
+        <button class="carousel-control-next" type="button" data-bs-target="#premiumHeroCarousel" data-bs-slide="next"
+            style="width: 5%; opacity: 0;">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
@@ -105,7 +112,9 @@ $about_img = !empty($db_image) ? 'admin/' . $db_image : 'assets/images/default-a
 
             <div class="col-lg-6">
                 <div class="about-img-wrapper">
-                    <img src="<?php echo $about_img; ?>" alt="<?php echo htmlspecialchars($about_data['title'] ?? 'About VT Export'); ?>" class="about-main-img img-fluid">
+                    <img src="<?php echo $about_img; ?>"
+                        alt="<?php echo htmlspecialchars($about_data['title'] ?? 'About VT Export'); ?>"
+                        class="about-main-img img-fluid">
 
                     <div class="experience-badge d-none d-md-block">
                         <h4>15+</h4>
@@ -148,7 +157,9 @@ $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path
 <section class="services-section">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="sub-heading-center" style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Our Expertise</span>
+            <span class="sub-heading-center"
+                style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Our
+                Expertise</span>
             <h2 class="fw-bold" style="color: #0a2540; font-size: clamp(2rem, 3vw, 2.5rem);">Our Premium Services</h2>
             <div style="width: 60px; height: 3px; background: #d4af37; margin: 15px auto;"></div>
         </div>
@@ -169,29 +180,32 @@ $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path
                     }
             ?>
 
-                    <div class="col-lg-4 col-md-6">
-                        <div class="premium-service-card">
-                            <div class="service-img-box">
-                                <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>">
-                                    <img src="<?php echo $img_src; ?>" alt="<?php echo htmlspecialchars($service['service_name']); ?>">
-                                </a>
-                            </div>
-
-                            <div class="service-content-box">
-                                <h3>
-                                    <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>" style="color: inherit; text-decoration: none;">
-                                        <?php echo htmlspecialchars($service['service_name']); ?>
-                                    </a>
-                                </h3>
-                                <p><?php echo htmlspecialchars($service['short_desc']); ?></p>
-
-                                <!-- 🔥 FIX: Dynamic Slug Link 🔥 -->
-                                <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>" class="service-read-more">
-                                    Explore <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="premium-service-card">
+                    <div class="service-img-box">
+                        <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>">
+                            <img src="<?php echo $img_src; ?>"
+                                alt="<?php echo htmlspecialchars($service['service_name']); ?>">
+                        </a>
                     </div>
+
+                    <div class="service-content-box">
+                        <h3>
+                            <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>"
+                                style="color: inherit; text-decoration: none;">
+                                <?php echo htmlspecialchars($service['service_name']); ?>
+                            </a>
+                        </h3>
+                        <p><?php echo htmlspecialchars($service['short_desc']); ?></p>
+
+                        <!-- 🔥 FIX: Dynamic Slug Link 🔥 -->
+                        <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>"
+                            class="service-read-more">
+                            Explore <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
             <?php
                 }
@@ -203,7 +217,10 @@ $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path
 
         <!-- View All Button -->
         <div class="text-center mt-5">
-            <a href="services.php" class="btn-hero-outline" style="border: 2px solid #0a2540; color: #0a2540; padding: 12px 35px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: 0.3s;" onmouseover="this.style.background='#0a2540'; this.style.color='#fff';" onmouseout="this.style.background='transparent'; this.style.color='#0a2540';">View All Services</a>
+            <a href="services.php" class="btn-hero-outline"
+                style="border: 2px solid #0a2540; color: #0a2540; padding: 12px 35px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: 0.3s;"
+                onmouseover="this.style.background='#0a2540'; this.style.color='#fff';"
+                onmouseout="this.style.background='transparent'; this.style.color='#0a2540';">View All Services</a>
         </div>
     </div>
 </section>
@@ -231,7 +248,8 @@ if (!empty($db_who_img)) {
 
             <div class="col-lg-6">
                 <h2 class="who-title">Who <span>We Are</span></h2>
-                <div style="width: 70px; height: 4px; background: #d4af37; margin-bottom: 35px; border-radius: 2px;"></div>
+                <div style="width: 70px; height: 4px; background: #d4af37; margin-bottom: 35px; border-radius: 2px;">
+                </div>
 
                 <div class="who-dynamic-content">
                     <?php
@@ -244,7 +262,9 @@ if (!empty($db_who_img)) {
                 </div>
 
                 <div class="mt-2">
-                    <a href="about.php" class="btn fw-bold px-4 py-3" style="background: #d4af37; color: #0a2540; border-radius: 30px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.background='#fff';" onmouseout="this.style.background='#d4af37';">
+                    <a href="about.php" class="btn fw-bold px-4 py-3"
+                        style="background: #d4af37; color: #0a2540; border-radius: 30px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;"
+                        onmouseover="this.style.background='#fff';" onmouseout="this.style.background='#d4af37';">
                         Discover Our Journey <i class="fas fa-arrow-right ms-2"></i>
                     </a>
                 </div>
@@ -252,11 +272,12 @@ if (!empty($db_who_img)) {
 
             <div class="col-lg-6">
                 <div class="who-img-container">
-                    <img src="<?php echo $who_img; ?>" alt="About VT Export" class="who-img-main" onerror="this.src='assets/images/default-who.jpg';">
+                    <img src="<?php echo $who_img; ?>" alt="About VT Export" class="who-img-main"
+                        onerror="this.src='assets/images/default-who.jpg';">
 
-                    <div class="who-floating-box d-none d-md-block">
+                    <!-- <div class="who-floating-box d-none d-md-block">
                         <i class="fas fa-gem me-2"></i> Premium Standards
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -279,14 +300,15 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url, image FROM catego
             <?php while ($cat = mysqli_fetch_assoc($cat_query)):
                 $img_path = !empty($cat['image']) ? 'admin/uploads/category/' . $cat['image'] : 'assets/images/default-cat.jpg';
             ?>
-                <div class="col-lg-4 col-md-6">
-                    <a href="category.php?slug=<?php echo $cat['slug_url']; ?>" class="cat-card">
-                        <img src="<?php echo $img_path; ?>" alt="<?php echo htmlspecialchars($cat['categories']); ?>" class="cat-img">
-                        <div class="cat-overlay">
-                            <h3 class="cat-title"><?php echo htmlspecialchars($cat['categories']); ?></h3>
-                        </div>
-                    </a>
-                </div>
+            <div class="col-lg-4 col-md-6">
+                <a href="category.php?slug=<?php echo $cat['slug_url']; ?>" class="cat-card">
+                    <img src="<?php echo $img_path; ?>" alt="<?php echo htmlspecialchars($cat['categories']); ?>"
+                        class="cat-img">
+                    <div class="cat-overlay">
+                        <h3 class="cat-title"><?php echo htmlspecialchars($cat['categories']); ?></h3>
+                    </div>
+                </a>
+            </div>
             <?php endwhile; ?>
         </div>
     </div>
@@ -319,41 +341,43 @@ $phone_number = !empty($contact['phone']) ? $contact['phone'] : '+91-0000000000'
                         $p_img = 'admin/' . $db_img;
                     }
             ?>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="prod-card">
-                            <!-- Image & Badge -->
-                            <div class="prod-img-wrapper">
-                                <span class="export-badge">Export Grade</span>
-                                <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>">
-                                    <img src="<?php echo $p_img; ?>" alt="<?php echo htmlspecialchars($prod['pro_name']); ?>">
-                                </a>
-                            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="prod-card">
+                    <!-- Image & Badge -->
+                    <div class="prod-img-wrapper">
+                        <span class="export-badge">Export Grade</span>
+                        <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>">
+                            <img src="<?php echo $p_img; ?>" alt="<?php echo htmlspecialchars($prod['pro_name']); ?>">
+                        </a>
+                    </div>
 
-                            <!-- Content -->
-                            <div class="prod-body">
-                                <h3 class="prod-title">
-                                    <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>" style="text-decoration: none;">
-                                        <?php echo htmlspecialchars($prod['pro_name']); ?>
-                                    </a>
-                                </h3>
+                    <!-- Content -->
+                    <div class="prod-body">
+                        <h3 class="prod-title">
+                            <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>"
+                                style="text-decoration: none;">
+                                <?php echo htmlspecialchars($prod['pro_name']); ?>
+                            </a>
+                        </h3>
 
-                                <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>" class="prod-link">
-                                    View Details <i class="fas fa-chevron-right"></i>
-                                </a>
+                        <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>" class="prod-link">
+                            View Details <i class="fas fa-chevron-right"></i>
+                        </a>
 
-                                <!-- Actions -->
-                                <div class="prod-actions">
-                                    <a href="tel:<?php echo $phone_number; ?>" class="btn-call" title="Call Us">
-                                        <i class="fas fa-phone"></i>
-                                    </a>
-                                    <!-- Passing product name in URL to pre-fill inquiry form -->
-                                    <a href="contact.php?product=<?php echo urlencode($prod['pro_name']); ?>" class="btn-inquire">
-                                        Inquire Now
-                                    </a>
-                                </div>
-                            </div>
+                        <!-- Actions -->
+                        <div class="prod-actions">
+                            <a href="tel:<?php echo $phone_number; ?>" class="btn-call" title="Call Us">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <!-- Passing product name in URL to pre-fill inquiry form -->
+                            <a href="contact.php?product=<?php echo urlencode($prod['pro_name']); ?>"
+                                class="btn-inquire">
+                                Inquire Now
+                            </a>
                         </div>
                     </div>
+                </div>
+            </div>
             <?php
                 }
             } else {
@@ -378,14 +402,14 @@ $test_query = mysqli_query($conn, "SELECT name, designation, message FROM testim
         </div>
         <div class="row g-4">
             <?php while ($test = mysqli_fetch_assoc($test_query)): ?>
-                <div class="col-md-4">
-                    <div class="testi-card">
-                        <i class="fas fa-quote-left quote-icon"></i>
-                        <p class="testi-msg">"<?php echo htmlspecialchars($test['message']); ?>"</p>
-                        <h4 class="testi-name"><?php echo htmlspecialchars($test['name']); ?></h4>
-                        <span class="testi-desig"><?php echo htmlspecialchars($test['designation']); ?></span>
-                    </div>
+            <div class="col-md-4">
+                <div class="testi-card">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="testi-msg">"<?php echo htmlspecialchars($test['message']); ?>"</p>
+                    <h4 class="testi-name"><?php echo htmlspecialchars($test['name']); ?></h4>
+                    <span class="testi-desig"><?php echo htmlspecialchars($test['designation']); ?></span>
                 </div>
+            </div>
             <?php endwhile; ?>
         </div>
     </div>
@@ -399,7 +423,9 @@ $gal_query = mysqli_query($conn, "SELECT image_path, image_name FROM gallery ORD
 <section class="gallery-section">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="sub-heading-center" style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Our Infrastructure</span>
+            <span class="sub-heading-center"
+                style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Our
+                Infrastructure</span>
             <h2 class="fw-bold" style="color: #0a2540;">Visual Gallery</h2>
             <div style="width: 50px; height: 3px; background: #d4af37; margin: 15px auto;"></div>
         </div>
@@ -410,22 +436,25 @@ $gal_query = mysqli_query($conn, "SELECT image_path, image_name FROM gallery ORD
                 while ($gal = mysqli_fetch_assoc($gal_query)):
                     $g_img = !empty($gal['image_path']) ? 'admin/' . $gal['image_path'] : 'assets/images/default-gallery.jpg';
             ?>
-                    <div class="col-lg-4 col-md-6">
-                        <a href="<?php echo $g_img; ?>" class="gallery-item" title="<?php echo htmlspecialchars($gal['image_name']); ?>">
-                            <img src="<?php echo $g_img; ?>" alt="Gallery Image">
-                            <div class="gallery-overlay">
-                                <i class="fas fa-search-plus"></i>
-                                <span class="gallery-title">View Image</span>
-                            </div>
-                        </a>
+            <div class="col-lg-4 col-md-6">
+                <a href="<?php echo $g_img; ?>" class="gallery-item"
+                    title="<?php echo htmlspecialchars($gal['image_name']); ?>">
+                    <img src="<?php echo $g_img; ?>" alt="Gallery Image">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <span class="gallery-title">View Image</span>
                     </div>
+                </a>
+            </div>
             <?php endwhile;
             } else {
                 echo "<p class='text-center'>Gallery images coming soon.</p>";
             } ?>
         </div>
         <div class="text-center mt-4">
-            <a href="gallery.php" class="btn-hero-outline" style="border: 2px solid #0a2540; color: #0a2540; padding: 10px 30px; border-radius: 30px; text-decoration: none; font-weight: 600;">View Full Gallery</a>
+            <a href="gallery.php" class="btn-hero-outline"
+                style="border: 2px solid #0a2540; color: #0a2540; padding: 10px 30px; border-radius: 30px; text-decoration: none; font-weight: 600;">View
+                Full Gallery</a>
         </div>
     </div>
 </section>
@@ -438,7 +467,9 @@ $blog_query = mysqli_query($conn, "SELECT title, slug, image, description, creat
 <section class="blog-section">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="sub-heading-center" style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Latest Updates</span>
+            <span class="sub-heading-center"
+                style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Latest
+                Updates</span>
             <!-- <h2 class="fw-bold" style="color: #0a2540;">News & Articles</h2> -->
             <div style="width: 50px; height: 3px; background: #d4af37; margin: 15px auto;"></div>
         </div>
@@ -450,34 +481,35 @@ $blog_query = mysqli_query($conn, "SELECT title, slug, image, description, creat
                     $b_img = !empty($blog['image']) ? 'admin/assets/img/uploads/blogs/' . $blog['image'] : 'assets/images/default-blog.jpg';
                     $date = strtotime($blog['created_at']);
             ?>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="blog-card">
-                            <div class="blog-img-wrap">
-                                <a href="blog-details.php?slug=<?php echo $blog['slug']; ?>">
-                                    <img src="<?php echo $b_img; ?>" alt="<?php echo htmlspecialchars($blog['title']); ?>">
-                                </a>
-                                <div class="blog-date-badge">
-                                    <span><?php echo date('d', $date); ?></span>
-                                    <small><?php echo date('M, Y', $date); ?></small>
-                                </div>
-                            </div>
-                            <div class="blog-content">
-                                <h3 class="blog-title">
-                                    <a href="blog-details.php?slug=<?php echo $blog['slug']; ?>" style="text-decoration: none;">
-                                        <?php echo htmlspecialchars($blog['title']); ?>
-                                </h3>
-                                </a>
-                                <div class="blog-desc">
-                                    <?php
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-card">
+                    <div class="blog-img-wrap">
+                        <a href="blog-details.php?slug=<?php echo $blog['slug']; ?>">
+                            <img src="<?php echo $b_img; ?>" alt="<?php echo htmlspecialchars($blog['title']); ?>">
+                        </a>
+                        <div class="blog-date-badge">
+                            <span><?php echo date('d', $date); ?></span>
+                            <small><?php echo date('M, Y', $date); ?></small>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">
+                            <a href="blog-details.php?slug=<?php echo $blog['slug']; ?>" style="text-decoration: none;">
+                                <?php echo htmlspecialchars($blog['title']); ?>
+                        </h3>
+                        </a>
+                        <div class="blog-desc">
+                            <?php
                                     // HTML tags remove karke text ko short karte hain
                                     $excerpt = strip_tags($blog['description']);
                                     echo strlen($excerpt) > 100 ? substr($excerpt, 0, 100) . '...' : $excerpt;
                                     ?>
-                                </div>
-                                <a href="blog-details.php?slug=<?php echo $blog['slug']; ?>" class="btn-read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
-                            </div>
                         </div>
+                        <a href="blog-details.php?slug=<?php echo $blog['slug']; ?>" class="btn-read-more">Read Full
+                            Article <i class="fas fa-arrow-right"></i></a>
                     </div>
+                </div>
+            </div>
             <?php endwhile;
             } else {
                 echo "<p class='text-center'>No blog posts available.</p>";
@@ -499,10 +531,12 @@ if (mysqli_num_rows($brand_query) > 0) {
 <section class="brands-section">
     <div class="container">
         <div class="brands-header">
-            <span style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Global Trust</span>
+            <span style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Global
+                Trust</span>
             <h2>Our Trusted Partners</h2>
             <div style="width: 50px; height: 3px; background: #d4af37; margin: 15px auto 20px;"></div>
-            <p>We are proud to collaborate with industry-leading brands and organizations globally, delivering uncompromised quality and excellence.</p>
+            <p>We are proud to collaborate with industry-leading brands and organizations globally, delivering
+                uncompromised quality and excellence.</p>
         </div>
     </div>
 
