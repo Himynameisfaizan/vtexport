@@ -40,6 +40,12 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
     <?php
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
     $host = $_SERVER['HTTP_HOST'];
+    
+    // 🔥 FIX: Agar host mein 'www.' nahi hai aur ye localhost nahi hai, toh 'www.' add kar do 🔥
+    if (strpos($host, 'www.') !== 0 && strpos($host, 'localhost') === false) {
+        $host = 'www.' . $host;
+    }
+
     $clean_uri = strtok($_SERVER['REQUEST_URI'], '?');
 
     $final_canonical = isset($custom_canonical) ? $custom_canonical : ($protocol . $host . $clean_uri);
@@ -162,11 +168,11 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
     <!-- Main Navbar Section (sticky-top class added for native smooth sticking) -->
     <header id="main-header" class="sticky-top"
         style="background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.4s;">
-        <nav class="navbar navbar-expand-lg py-3">
+        <nav class="navbar navbar-expand-sm">
             <div class="container position-relative">
                 <!-- Dynamic Logo -->
                 <a class="navbar-brand" href="./">
-                    <img src="admin/uploads/<?php echo $logo_url; ?>" alt="VT Export" style="max-height: 60px;">
+                    <img src="admin/uploads/<?php echo $logo_url; ?>" alt="VT Export" style="height: 80px;">
                 </a>
 
                 <!-- Mobile Search Icon + Menu Toggler -->
