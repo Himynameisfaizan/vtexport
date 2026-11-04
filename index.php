@@ -141,7 +141,7 @@ $about_img = !empty($db_image) ? 'admin/' . $db_image : 'assets/images/default-a
                         ?>
                     </div>
 
-                    <a href="about.php" class="btn-about">Read More <i class="fas fa-arrow-right ms-2"></i></a>
+                    <a href="about" class="btn-about">Read More <i class="fas fa-arrow-right ms-2"></i></a>
                 </div>
             </div>
 
@@ -217,7 +217,7 @@ $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path
 
         <!-- View All Button -->
         <div class="text-center mt-5">
-            <a href="services.php" class="btn-hero-outline"
+            <a href="services" class="btn-hero-outline"
                 style="border: 2px solid #0a2540; color: #0a2540; padding: 12px 35px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: 0.3s;"
                 onmouseover="this.style.background='#0a2540'; this.style.color='#fff';"
                 onmouseout="this.style.background='transparent'; this.style.color='#0a2540';">View All Services</a>
@@ -262,7 +262,7 @@ if (!empty($db_who_img)) {
                 </div>
 
                 <div class="mt-2">
-                    <a href="about.php" class="btn fw-bold px-4 py-3"
+                    <a href="about" class="btn fw-bold px-4 py-3"
                         style="background: #d4af37; color: #0a2540; border-radius: 30px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;"
                         onmouseover="this.style.background='#fff';" onmouseout="this.style.background='#d4af37';">
                         Discover Our Journey <i class="fas fa-arrow-right ms-2"></i>
@@ -301,7 +301,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url, image FROM catego
                 $img_path = !empty($cat['image']) ? 'admin/uploads/category/' . $cat['image'] : 'assets/images/default-cat.jpg';
             ?>
             <div class="col-lg-4 col-md-6">
-                <a href="category.php?slug=<?php echo $cat['slug_url']; ?>" class="cat-card">
+                <a href="category/<?php echo $cat['slug_url']; ?>" class="cat-card">
                     <img src="<?php echo $img_path; ?>" alt="<?php echo htmlspecialchars($cat['categories']); ?>"
                         class="cat-img">
                     <div class="cat-overlay">
@@ -346,7 +346,7 @@ $phone_number = !empty($contact['phone']) ? $contact['phone'] : '+91-0000000000'
                     <!-- Image & Badge -->
                     <div class="prod-img-wrapper">
                         <span class="export-badge">Export Grade</span>
-                        <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>">
+                        <a href="product/<?php echo $prod['slug_url']; ?>">
                             <img src="<?php echo $p_img; ?>" alt="<?php echo htmlspecialchars($prod['pro_name']); ?>">
                         </a>
                     </div>
@@ -354,13 +354,12 @@ $phone_number = !empty($contact['phone']) ? $contact['phone'] : '+91-0000000000'
                     <!-- Content -->
                     <div class="prod-body">
                         <h3 class="prod-title">
-                            <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>"
-                                style="text-decoration: none;">
+                            <a href="product/<?php echo $prod['slug_url']; ?>" style="text-decoration: none;">
                                 <?php echo htmlspecialchars($prod['pro_name']); ?>
                             </a>
                         </h3>
 
-                        <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>" class="prod-link">
+                        <a href="product/<?php echo $prod['slug_url']; ?>" class="prod-link">
                             View Details <i class="fas fa-chevron-right"></i>
                         </a>
 
@@ -484,7 +483,7 @@ $blog_query = mysqli_query($conn, "SELECT title, slug, image, description, creat
             <div class="col-lg-4 col-md-6">
                 <div class="blog-card">
                     <div class="blog-img-wrap">
-                        <a href="blog-details.php?slug=<?php echo $blog['slug']; ?>">
+                        <a href="blog/<?php echo $blog['slug']; ?>">
                             <img src="<?php echo $b_img; ?>" alt="<?php echo htmlspecialchars($blog['title']); ?>">
                         </a>
                         <div class="blog-date-badge">
@@ -494,7 +493,7 @@ $blog_query = mysqli_query($conn, "SELECT title, slug, image, description, creat
                     </div>
                     <div class="blog-content">
                         <h3 class="blog-title">
-                            <a href="blog-details.php?slug=<?php echo $blog['slug']; ?>" style="text-decoration: none;">
+                            <a href="blog/<?php echo $blog['slug']; ?>" style="text-decoration: none;">
                                 <?php echo htmlspecialchars($blog['title']); ?>
                         </h3>
                         </a>
@@ -505,7 +504,7 @@ $blog_query = mysqli_query($conn, "SELECT title, slug, image, description, creat
                                     echo strlen($excerpt) > 100 ? substr($excerpt, 0, 100) . '...' : $excerpt;
                                     ?>
                         </div>
-                        <a href="blog-details.php?slug=<?php echo $blog['slug']; ?>" class="btn-read-more">Read Full
+                        <a href="blog/<?php echo $blog['slug']; ?>" class="btn-read-more">Read Full
                             Article <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>

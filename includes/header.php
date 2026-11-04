@@ -60,14 +60,14 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/style/include.css">
-    <link rel="stylesheet" href="assets/style/style.css">
-    <link rel="stylesheet" href="assets/style/about.css">
-    <link rel="stylesheet" href="assets/style/product.css">
-    <link rel="stylesheet" href="assets/style/service.css">
-    <link rel="stylesheet" href="assets/style/blog.css">
-    <link rel="stylesheet" href="assets/style/gallery.css">
-    <link rel="stylesheet" href="assets/style/contact.css">
+    <link rel="stylesheet" href="assets/style/include.css?v=<?php echo time()?>">
+    <link rel="stylesheet" href="assets/style/style.css?v=<?php echo time()?>">
+    <link rel="stylesheet" href="assets/style/about.css?v=<?php echo time()?>">
+    <link rel="stylesheet" href="assets/style/product.css?v=<?php echo time()?>">
+    <link rel="stylesheet" href="assets/style/service.css?v=<?php echo time()?>">
+    <link rel="stylesheet" href="assets/style/blog.css?v=<?php echo time()?>">
+    <link rel="stylesheet" href="assets/style/gallery.css?v=<?php echo time()?>">
+    <link rel="stylesheet" href="assets/style/contact.css?v=<?php echo time()?>">
     <base href="http://localhost/projects/vtexport/">
     <!-- Basic Organization Schema -->
     <script type="application/ld+json">
@@ -193,7 +193,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
                         </li>
                         <li class="nav-item">
                             <a class="nav-link <?php echo ($current_page == 'about.php') ? 'active' : ''; ?>"
-                                href="about.php">About Us</a>
+                                href="about">About Us</a>
                         </li>
 
                         <style>
@@ -284,7 +284,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
                             </a>
                             <ul class="dropdown-menu custom-cat-menu">
                                 <?php
-                                $nav_cat_query = mysqli_query($conn, "SELECT cate_id, categories, slug_url FROM categories WHERE status=1 ORDER BY id ASC");
+                                $nav_cat_query = mysqli_query($conn, "SELECT cate_id, categories, slug_url FROM categories WHERE status=1 ORDER BY id DESC");
                                 if (mysqli_num_rows($nav_cat_query) > 0) {
                                     while ($nav_cat = mysqli_fetch_assoc($nav_cat_query)) {
                                         $parent_cid = $nav_cat['cate_id'];
@@ -294,7 +294,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
                                 ?>
                                 <li class="<?php echo $has_sub ? 'dropdown-submenu' : ''; ?>">
                                     <a class="dropdown-item"
-                                        href="category.php?slug=<?php echo urlencode($nav_cat['slug_url']); ?>">
+                                        href="category/<?php echo urlencode($nav_cat['slug_url']); ?>">
                                         <span><?php echo htmlspecialchars($nav_cat['categories']); ?></span>
                                         <?php if ($has_sub): ?>
                                         <i class="fas fa-chevron-right sub-toggle-icon"></i>
@@ -306,7 +306,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
                                         <?php while ($nav_sub = mysqli_fetch_assoc($nav_sub_query)): ?>
                                         <li>
                                             <a class="dropdown-item"
-                                                href="category.php?slug=<?php echo urlencode($nav_cat['slug_url']); ?>&sub=<?php echo urlencode($nav_sub['slug_url']); ?>">
+                                                href="category/<?php echo urlencode($nav_cat['slug_url']); ?>&sub=<?php echo urlencode($nav_sub['slug_url']); ?>">
                                                 <?php echo htmlspecialchars($nav_sub['categories']); ?>
                                             </a>
                                         </li>
@@ -330,19 +330,19 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
 
                         <li class="nav-item">
                             <a class="nav-link <?php echo ($current_page == 'services.php' || $current_page == 'service-details.php') ? 'active' : ''; ?>"
-                                href="services.php">Our Services</a>
+                                href="services">Our Services</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link <?php echo ($current_page == 'blogs.php' || $current_page == 'blog-details.php') ? 'active' : ''; ?>"
-                                href="blogs.php">Blogs</a>
+                                href="blogs">Blogs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link <?php echo ($current_page == 'gallery.php') ? 'active' : ''; ?>"
-                                href="gallery.php">Our Gallery</a>
+                                href="gallery">Our Gallery</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>"
-                                href="contact.php">Contact Us</a>
+                                href="contact">Contact Us</a>
                         </li>
                     </ul>
 
@@ -351,7 +351,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
                         <i class="fas fa-search" data-bs-toggle="collapse" data-bs-target="#searchBoxArea"
                             style="color: #0a2540; font-size: 1.2rem; cursor: pointer; transition: 0.3s;"
                             onmouseover="this.style.color='#d4af37'" onmouseout="this.style.color='#0a2540'"></i>
-                        <a href="quote.php" class="btn text-white fw-bold px-4 rounded-pill"
+                        <a href="contact" class="btn text-white fw-bold px-4 rounded-pill"
                             style="background: #d4af37; border: 2px solid #d4af37;">GET A QUOTE <i
                                 class="fas fa-arrow-right ms-1"></i></a>
                     </div>

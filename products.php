@@ -40,37 +40,37 @@ $categories_query = mysqli_query($conn, "SELECT cate_id, categories FROM categor
 ?>
 
 <style>
-     /* Sidebar Search */
-    .sidebar-search-form {
-        display: flex;
-    }
+/* Sidebar Search */
+.sidebar-search-form {
+    display: flex;
+}
 
-    .sidebar-search-form input {
-        border: 2px solid #e2e8f0;
-        border-right: none;
-        border-radius: 8px 0 0 8px;
-        padding: 11px 15px;
-        font-size: 0.95rem;
-    }
+.sidebar-search-form input {
+    border: 2px solid #e2e8f0;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    padding: 11px 15px;
+    font-size: 0.95rem;
+}
 
-    .sidebar-search-form input:focus {
-        box-shadow: none;
-        border-color: var(--primary-blue);
-    }
+.sidebar-search-form input:focus {
+    box-shadow: none;
+    border-color: var(--primary-blue);
+}
 
-    .sidebar-search-form button {
-        background: var(--primary-blue);
-        color: #fff;
-        border: none;
-        padding: 0 20px;
-        border-radius: 0 8px 8px 0;
-        transition: 0.3s;
-    }
+.sidebar-search-form button {
+    background: var(--primary-blue);
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    border-radius: 0 8px 8px 0;
+    transition: 0.3s;
+}
 
-    .sidebar-search-form button:hover {
-        background: var(--accent-gold);
-        color: var(--primary-blue);
-    }
+.sidebar-search-form button:hover {
+    background: var(--accent-gold);
+    color: var(--primary-blue);
+}
 </style>
 
 <section class="products-page-section">
@@ -82,15 +82,16 @@ $categories_query = mysqli_query($conn, "SELECT cate_id, categories FROM categor
                 <div class="sidebar-wrapper">
 
                     <!-- Search Box -->
-                     <h4 class="widget-title">Search Products</h4>
+                    <h4 class="widget-title">Search Products</h4>
                     <form action="category.php" method="GET" class="sidebar-search-form">
                         <?php if (!empty($slug)): ?>
-                            <input type="hidden" name="slug" value="<?php echo htmlspecialchars($slug); ?>">
+                        <input type="hidden" name="slug" value="<?php echo htmlspecialchars($slug); ?>">
                         <?php endif; ?>
                         <?php if (!empty($sub_slug)): ?>
-                            <input type="hidden" name="sub" value="<?php echo htmlspecialchars($sub_slug); ?>">
+                        <input type="hidden" name="sub" value="<?php echo htmlspecialchars($sub_slug); ?>">
                         <?php endif; ?>
-                        <input type="text" name="search" class="form-control" placeholder="Search product name..." value="<?php echo htmlspecialchars($search); ?>" required>
+                        <input type="text" name="search" class="form-control" placeholder="Search product name..."
+                            value="<?php echo htmlspecialchars($search); ?>" required>
                         <button type="submit" title="Search"><i class="fas fa-search"></i></button>
                     </form>
 
@@ -107,11 +108,12 @@ $categories_query = mysqli_query($conn, "SELECT cate_id, categories FROM categor
                             while ($cat = mysqli_fetch_assoc($categories_query)) {
                                 $is_active = ($cat_filter == $cat['cate_id']) ? 'active' : '';
                         ?>
-                                <li>
-                                    <a href="products.php?category=<?php echo urlencode($cat['cate_id']); ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>" class="cat-link <?php echo $is_active; ?>">
-                                        <i class="fas fa-check-circle"></i> <?php echo htmlspecialchars($cat['categories']); ?>
-                                    </a>
-                                </li>
+                        <li>
+                            <a href="products.php?category=<?php echo urlencode($cat['cate_id']); ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
+                                class="cat-link <?php echo $is_active; ?>">
+                                <i class="fas fa-check-circle"></i> <?php echo htmlspecialchars($cat['categories']); ?>
+                            </a>
+                        </li>
                         <?php
                             }
                         }
@@ -125,7 +127,8 @@ $categories_query = mysqli_query($conn, "SELECT cate_id, categories FROM categor
 
                 <!-- Results Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <p class="m-0 text-muted">Showing <strong><?php echo mysqli_num_rows($prod_query); ?></strong> results <?php echo !empty($search) ? 'for "' . htmlspecialchars($search) . '"' : ''; ?></p>
+                    <p class="m-0 text-muted">Showing <strong><?php echo mysqli_num_rows($prod_query); ?></strong>
+                        results <?php echo !empty($search) ? 'for "' . htmlspecialchars($search) . '"' : ''; ?></p>
                 </div>
 
                 <div class="row g-4">
@@ -139,37 +142,39 @@ $categories_query = mysqli_query($conn, "SELECT cate_id, categories FROM categor
                                 $p_img = 'admin/' . $db_img;
                             }
                     ?>
-                            <div class="col-md-6 col-xl-4">
-                                <div class="prod-card">
-                                    <div class="prod-img-wrapper">
-                                        <span class="export-badge">Export Grade</span>
-                                        <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>" >
-                                        <img src="<?php echo $p_img; ?>" alt="<?php echo htmlspecialchars($prod['pro_name']); ?>">
-                                        </a>
-                                    </div>
+                    <div class="col-md-6 col-xl-4">
+                        <div class="prod-card">
+                            <div class="prod-img-wrapper">
+                                <span class="export-badge">Export Grade</span>
+                                <a href="product/<?php echo $prod['slug_url']; ?>">
+                                    <img src="<?php echo $p_img; ?>"
+                                        alt="<?php echo htmlspecialchars($prod['pro_name']); ?>">
+                                </a>
+                            </div>
 
-                                    <div class="prod-body">
-                                        <h3 class="prod-title">
-                                            <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>" style="text-decoration: none;">
-                                                <?php echo htmlspecialchars($prod['pro_name']); ?>
-                                        </h3>
-                                        </a>
+                            <div class="prod-body">
+                                <h3 class="prod-title">
+                                    <a href="product/<?php echo $prod['slug_url']; ?>" style="text-decoration: none;">
+                                        <?php echo htmlspecialchars($prod['pro_name']); ?>
+                                </h3>
+                                </a>
 
-                                        <a href="product-details.php?slug=<?php echo $prod['slug_url']; ?>" class="prod-link">
-                                            View Details <i class="fas fa-chevron-right"></i>
-                                        </a>
+                                <a href="product/<?php echo $prod['slug_url']; ?>" class="prod-link">
+                                    View Details <i class="fas fa-chevron-right"></i>
+                                </a>
 
-                                        <div class="prod-actions">
-                                            <a href="tel:<?php echo $phone_number; ?>" class="btn-call" title="Call Us">
-                                                <i class="fas fa-phone"></i>
-                                            </a>
-                                            <a href="contact.php?product=<?php echo urlencode($prod['pro_name']); ?>" class="btn-inquire">
-                                                Inquire Now
-                                            </a>
-                                        </div>
-                                    </div>
+                                <div class="prod-actions">
+                                    <a href="tel:<?php echo $phone_number; ?>" class="btn-call" title="Call Us">
+                                        <i class="fas fa-phone"></i>
+                                    </a>
+                                    <a href="contact.php?product=<?php echo urlencode($prod['pro_name']); ?>"
+                                        class="btn-inquire">
+                                        Inquire Now
+                                    </a>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                     <?php
                         }
                     } else {
@@ -185,34 +190,37 @@ $categories_query = mysqli_query($conn, "SELECT cate_id, categories FROM categor
 
                 <!-- Pagination Logic -->
                 <?php if ($total_pages > 1): ?>
-                    <ul class="premium-pagination">
-                        <!-- Previous Button -->
-                        <?php if ($page > 1): ?>
-                            <li>
-                                <a href="?page=<?php echo ($page - 1); ?><?php echo !empty($cat_filter) ? '&category=' . $cat_filter : ''; ?><?php echo !empty($search) ? '&search=' . $search : ''; ?>">
-                                    <i class="fas fa-angle-left"></i>
-                                </a>
-                            </li>
-                        <?php endif; ?>
+                <ul class="premium-pagination">
+                    <!-- Previous Button -->
+                    <?php if ($page > 1): ?>
+                    <li>
+                        <a
+                            href="?page=<?php echo ($page - 1); ?><?php echo !empty($cat_filter) ? '&category=' . $cat_filter : ''; ?><?php echo !empty($search) ? '&search=' . $search : ''; ?>">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    </li>
+                    <?php endif; ?>
 
-                        <!-- Page Numbers -->
-                        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                            <li class="<?php echo ($page == $i) ? 'active' : ''; ?>">
-                                <a href="?page=<?php echo $i; ?><?php echo !empty($cat_filter) ? '&category=' . $cat_filter : ''; ?><?php echo !empty($search) ? '&search=' . $search : ''; ?>">
-                                    <?php echo $i; ?>
-                                </a>
-                            </li>
-                        <?php endfor; ?>
+                    <!-- Page Numbers -->
+                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <li class="<?php echo ($page == $i) ? 'active' : ''; ?>">
+                        <a
+                            href="?page=<?php echo $i; ?><?php echo !empty($cat_filter) ? '&category=' . $cat_filter : ''; ?><?php echo !empty($search) ? '&search=' . $search : ''; ?>">
+                            <?php echo $i; ?>
+                        </a>
+                    </li>
+                    <?php endfor; ?>
 
-                        <!-- Next Button -->
-                        <?php if ($page < $total_pages): ?>
-                            <li>
-                                <a href="?page=<?php echo ($page + 1); ?><?php echo !empty($cat_filter) ? '&category=' . $cat_filter : ''; ?><?php echo !empty($search) ? '&search=' . $search : ''; ?>">
-                                    <i class="fas fa-angle-right"></i>
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
+                    <!-- Next Button -->
+                    <?php if ($page < $total_pages): ?>
+                    <li>
+                        <a
+                            href="?page=<?php echo ($page + 1); ?><?php echo !empty($cat_filter) ? '&category=' . $cat_filter : ''; ?><?php echo !empty($search) ? '&search=' . $search : ''; ?>">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+                </ul>
                 <?php endif; ?>
 
             </div>
