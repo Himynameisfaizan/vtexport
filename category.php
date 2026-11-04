@@ -64,16 +64,35 @@ if (!empty($slug) && !$category) {
 }
 
 // --- 3. DYNAMIC SEO SETUP ---
+// --- 3. DYNAMIC SEO SETUP ---
 if ($sub_category) {
     $pageTitle     = $sub_category['categories'];
     $meta_title    = !empty($sub_category['meta_title']) ? $sub_category['meta_title'] : $sub_category['categories'] . " - VT Export";
+    $meta_desc     = !empty($sub_category['meta_desc']) ? $sub_category['meta_desc'] : 'Browse ' . $sub_category['categories'] . ' at VT Export.';
+    $meta_key      = !empty($sub_category['meta_key']) ? $sub_category['meta_key'] : $sub_category['categories'] . ', export';
+    $custom_schema = !empty($sub_category['schema_markup']) ? $sub_category['schema_markup'] : '';
 } elseif ($category) {
     $pageTitle     = $category['categories'];
     $meta_title    = !empty($category['meta_title']) ? $category['meta_title'] : $category['categories'] . " - VT Export";
+    $meta_desc     = !empty($category['meta_desc']) ? $category['meta_desc'] : 'Browse ' . $category['categories'] . ' at VT Export.';
+    $meta_key      = !empty($category['meta_key']) ? $category['meta_key'] : $category['categories'] . ', export';
+    $custom_schema = !empty($category['schema_markup']) ? $category['schema_markup'] : '';
 } else {
     $pageTitle  = !empty($search) ? "Search: " . htmlspecialchars($search) : "Product Categories";
     $meta_title = "Explore Product Categories - VT Export";
+    $meta_desc  = "Browse all product categories at VT Export.";
+    $meta_key   = "categories, products, VT export";
+    $custom_schema = "";
 }
+
+// Canonical URL setup
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$host = $_SERVER['HTTP_HOST'];
+if (strpos($host, 'localhost') === false && strpos($host, '127.0.0.1') === false && strpos($host, 'www.') !== 0) {
+    $host = 'www.' . $host;
+}
+$clean_uri = strtok($_SERVER['REQUEST_URI'], '?');
+$custom_canonical = $protocol . $host . $clean_uri;
 ?>
 
 <!DOCTYPE html>
@@ -83,6 +102,9 @@ if ($sub_category) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($meta_title); ?></title>
+    <meta name="description" content="<?php echo htmlspecialchars($meta_desc); ?>">
+    <meta name="keywords" content="<?php echo htmlspecialchars($meta_key); ?>">
+    <link rel="canonical" href="<?php echo htmlspecialchars($custom_canonical); ?>">
 
     <!-- 🔥 FIX: BASE TAG FOR CATEGORY URL REWRITES 🔥 -->
     <base href="http://localhost/projects/vtexport/">

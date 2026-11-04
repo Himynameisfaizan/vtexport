@@ -86,6 +86,16 @@ $gallery_query = mysqli_query($conn, "SELECT * FROM product_images WHERE product
                                                     value="<?= htmlspecialchars($product['pro_name']) ?>" required />
                                             </div>
 
+                                            <!-- Breadcrumb Title -->
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label" for="breadcrumb_title">Breadcrumb Title
+                                                    (Optional)</label>
+                                                <input type="text" class="form-control" name="breadcrumb_title"
+                                                    id="breadcrumb_title"
+                                                    value="<?= htmlspecialchars($product['breadcrumb_title'] ?? '') ?>"
+                                                    placeholder="Short title for breadcrumb" />
+                                            </div>
+
                                             <!-- NEW: Custom Slug Field -->
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label" for="slug_url">Custom Slug (SEO URL)</label>

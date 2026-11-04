@@ -135,7 +135,7 @@ if (isset($_POST["add-sub-categories"])) {
     $added_on   = date('M d, Y');
     $parent_id  = mysqli_real_escape_string($conn, $_POST['parent_id']);
     $slug_url   = strtolower(str_replace(" ", "-", $cate_name));
-    
+
 
     $sql = "INSERT INTO `sub_categories`( `parent_id`,`cate_id`, `categories`, `meta_title`, `meta_desc`, `meta_key`, `schema_markup`, `sub_cat_img`, `slug_url`, `status`, `added_on`) 
             VALUES ('$parent_id','$cate_id','$cate_name','$meta_title','$meta_desc','$meta_key', '$schema_markup', '$uploadedImage', '$slug_url', 1, '$added_on')";
@@ -215,7 +215,7 @@ if (isset($_POST["add-product"])) {
     $meta_title = mysqli_real_escape_string($conn, $_POST['meta_title']);
     $meta_key = mysqli_real_escape_string($conn, $_POST["meta_key"]);
     $meta_desc = mysqli_real_escape_string($conn, $_POST["meta_desc"]);
-
+    $breadcrumb_title = isset($_POST['breadcrumb_title']) ? mysqli_real_escape_string($conn, $_POST['breadcrumb_title']) : '';
     // --- Naya Schema variable fetch kiya ---
     $schema_markup = mysqli_real_escape_string($conn, trim($_POST['schema_markup']));
     $added_on = date('M d, Y');
@@ -224,8 +224,9 @@ if (isset($_POST["add-product"])) {
     // Assuming this function generates a valid slug
 
     // Corrected SQL query (Schema column and value added)
-    $sql = "INSERT INTO `products`(`pro_id`, `pro_name`,`brand_name` , `pro_cate`, `pro_sub_cate`, `short_desc`, `description`, `new_arrival`,`trending`, `qty`, `mrp`, `selling_price`, `whole_sale_selling_price`, `stock`, `pro_img`, `status`, `slug_url`, `meta_title`, `meta_desc`, `meta_key`, `schema_markup`, `added_on`) 
-VALUES ('$pro_id', '$pro_name', '$brand_name','$pro_cate', '$pro_sub_cate', '$short_description', '$description', '$new_arrival', '$trending', '$qty','$mrp', '$selling_price', '$whole_sale_selling_price', '$stock', '$filename', '$status', '$slug_url', '$meta_title', '$meta_desc', '$meta_key', '$schema_markup', '$added_on')";
+    // Query mein `breadcrumb_title` column aur value dono add karo
+    $sql = "INSERT INTO `products`(`pro_id`, `pro_name`, `breadcrumb_title`, `brand_name`, `pro_cate`, `pro_sub_cate`, `short_desc`, `description`, `new_arrival`, `trending`, `qty`, `mrp`, `selling_price`, `whole_sale_selling_price`, `stock`, `pro_img`, `status`, `slug_url`, `meta_title`, `meta_desc`, `meta_key`, `schema_markup`, `added_on`) 
+VALUES ('$pro_id', '$pro_name', '$breadcrumb_title', '$brand_name','$pro_cate', '$pro_sub_cate', '$short_description', '$description', '$new_arrival', '$trending', '$qty','$mrp', '$selling_price', '$whole_sale_selling_price', '$stock', '$filename', '$status', '$slug_url', '$meta_title', '$meta_desc', '$meta_key', '$schema_markup', '$added_on')";
 
     // Execute the query
     $check = mysqli_query($conn, $sql);

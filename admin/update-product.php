@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update-product'])) {
     // Get all POST data
     $pro_id = intval($_POST['pro_id']);
     $pro_name = mysqli_real_escape_string($conn, $_POST['pro_name'] ?? '');
+    $breadcrumb_title = mysqli_real_escape_string($conn, $_POST['breadcrumb_title'] ?? '');
     $brand_name = mysqli_real_escape_string($conn, $_POST['brand_name'] ?? '');
     $pro_cate = intval($_POST['pro_cate'] ?? 0);
     $pro_sub_cate = intval($_POST['pro_sub_cate'] ?? 0);
@@ -82,6 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update-product'])) {
     // Update query (Schema Column add kar diya gaya hai)
     $query = "UPDATE products SET 
                 pro_name = '$pro_name',
+                breadcrumb_title = '$breadcrumb_title',
                 brand_name = '$brand_name',
                 pro_cate = '$pro_cate',
                 pro_sub_cate = '$pro_sub_cate',

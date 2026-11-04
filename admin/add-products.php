@@ -59,6 +59,18 @@ $check = mysqli_query($conn,$sql);
                                                                     id="pro_name" placeholder="Product name" required />
                                                             </div>
 
+                                                            <!-- Breadcrumb Title -->
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label"
+                                                                    for="breadcrumb_title">Breadcrumb Title
+                                                                    (Optional)</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="breadcrumb_title" id="breadcrumb_title"
+                                                                    placeholder="Short title for breadcrumb (e.g. Vacuum Parts)" />
+                                                                <small class="text-muted">If left blank, Product Name
+                                                                    will be used.</small>
+                                                            </div>
+
                                                             <!-- NEW: Custom Slug Field -->
                                                             <div class="col-md-6 mb-3">
                                                                 <label class="form-label" for="slug_url">Custom Slug

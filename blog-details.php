@@ -24,8 +24,17 @@ $meta_title = !empty($blog['meta_title']) ? $blog['meta_title'] : $blog['title']
 $meta_desc = !empty($blog['meta_desc']) ? $blog['meta_desc'] : strip_tags(substr($blog['description'], 0, 160));
 $meta_key = !empty($blog['meta_key']) ? $blog['meta_key'] : 'Export, Spices, ' . $blog['title'];
 $pageTitle = $blog['title'];
-?>
+$custom_schema = ""; // Define as empty since we have custom schema in head
 
+// Canonical URL setup
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$host = $_SERVER['HTTP_HOST'];
+if (strpos($host, 'localhost') === false && strpos($host, '127.0.0.1') === false && strpos($host, 'www.') !== 0) {
+    $host = 'www.' . $host;
+}
+$clean_uri = strtok($_SERVER['REQUEST_URI'], '?');
+$custom_canonical = $protocol . $host . $clean_uri;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +44,8 @@ $pageTitle = $blog['title'];
     <title><?php echo htmlspecialchars($meta_title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($meta_desc); ?>">
     <meta name="keywords" content="<?php echo htmlspecialchars($meta_key); ?>">
+    <link rel="canonical" href="<?php echo htmlspecialchars($custom_canonical); ?>">
+
 
     <!-- Base URL zaroori hai URL Rewriting ke liye taaki CSS load ho sake -->
     <base href="http://localhost/projects/vtexport/">

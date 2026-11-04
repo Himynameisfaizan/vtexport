@@ -46,7 +46,16 @@ if($total_reviews > 0) {
 $meta_title = !empty($product['meta_title']) ? $product['meta_title'] : $product['pro_name'] . ' - VT Export';
 $meta_desc = !empty($product['meta_desc']) ? $product['meta_desc'] : strip_tags($product['short_desc']);
 $meta_key = !empty($product['meta_key']) ? $product['meta_key'] : $product['pro_name'].', export, premium';
-$pageTitle = $product['pro_name'];
+$pageTitle = !empty($product['breadcrumb_title']) ? $product['breadcrumb_title'] : $product['pro_name'];
+$custom_schema = !empty($product['schema_markup']) ? $product['schema_markup'] : '';
+
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$host = $_SERVER['HTTP_HOST'];
+if (strpos($host, 'localhost') === false && strpos($host, '127.0.0.1') === false && strpos($host, 'www.') !== 0) {
+    $host = 'www.' . $host;
+}
+$clean_uri = strtok($_SERVER['REQUEST_URI'], '?');
+$custom_canonical = $protocol . $host . $clean_uri;
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +66,10 @@ $pageTitle = $product['pro_name'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($meta_title); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($meta_desc); ?>">
+    <meta name="keywords" content="<?php echo htmlspecialchars($meta_key); ?>">
+
+    <link rel="canonical" href="<?php echo htmlspecialchars($custom_canonical); ?>">
+
 
     <!-- 🔥 FIX: BASE TAG FOR URL REWRITES 🔥 -->
     <base href="http://localhost/projects/vtexport/">
