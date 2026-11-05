@@ -68,7 +68,7 @@ $cat_query = mysqli_query($conn, "SELECT categories, slug_url FROM categories WH
     <link rel="stylesheet" href="assets/style/blog.css?v=<?php echo time()?>">
     <link rel="stylesheet" href="assets/style/gallery.css?v=<?php echo time()?>">
     <link rel="stylesheet" href="assets/style/contact.css?v=<?php echo time()?>">
-    <base href="http://localhost/projects/vtexport/">
+    <base href="http://localhost/office_php_project/vtexport/">
     <!-- Basic Organization Schema -->
     <script type="application/ld+json">
     {

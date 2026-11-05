@@ -565,4 +565,62 @@ if (mysqli_num_rows($brand_query) > 0) {
 <!-- Inquiry Section -->
 <?php include('includes/inquiry_section.php') ?>
 
+<!-- FAQ SECTION -->
+<section class="faq-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span style="color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Support</span>
+            <h2 style="color: #0a2540; font-size: clamp(2rem, 3vw, 2.5rem); font-weight: 800;">Frequently Asked Questions</h2>
+            <div style="width: 60px; height: 3px; background: #d4af37; margin: 15px auto;"></div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="contactFaq">
+                    
+                    <div class="accordion-item mb-3 border-0">
+                        <h2 class="accordion-header" id="headingC1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseC1" aria-expanded="true">
+                                How soon can I expect a reply to my inquiry?
+                            </button>
+                        </h2>
+                        <div id="collapseC1" class="accordion-collapse collapse show" data-bs-parent="#contactFaq">
+                            <div class="accordion-body">
+                                Our dedicated B2B sales team aims to respond to all inquiries within 24 business hours. If your request is urgent, please call our head office directly or connect with us on WhatsApp.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item mb-3 border-0">
+                        <h2 class="accordion-header" id="headingC2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseC2" aria-expanded="false">
+                                Do you provide samples for bulk export orders?
+                            </button>
+                        </h2>
+                        <div id="collapseC2" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                            <div class="accordion-body">
+                                Yes, we provide product samples for quality testing to our serious international buyers. Please mention your sample requirement in the message box along with your company details.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item mb-3 border-0">
+                        <h2 class="accordion-header" id="headingC3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseC3" aria-expanded="false">
+                                Where is your manufacturing/processing unit located?
+                            </button>
+                        </h2>
+                        <div id="collapseC3" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                            <div class="accordion-body">
+                                You can find our primary operational and head office details on the map above[cite: 2]. We also have multiple tie-up farms and processing centers across the country to ensure fresh sourcing.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <?php include('includes/footer.php') ?>

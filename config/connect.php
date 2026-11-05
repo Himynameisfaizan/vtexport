@@ -14,7 +14,7 @@ if ($local) {
     $username = 'root';
     $password = '';
     $dbName = 'vtexport';
-    $site = "http://localhost/projects/vtexport/";
+    $site = "http://localhost/office_php_project/vtexport/";
 } else {
     $host = 'localhost';
     $username = 'u799879276_bhagirath_db';
