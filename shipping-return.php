@@ -1,45 +1,107 @@
-<?php include 'includes/header.php'; ?>
+<?php
+include('config/connect.php');
 
-<section class="py-5" style="background-color: #f8f9fa;">
-    <div class="container mt-5">
-        <div class="row bg-white p-4 p-md-5 rounded shadow-sm">
-            <div class="col-12">
-                <h1 class="mb-4" style="color: #17385A; font-weight: 700;">Shipping and Delivery Policy</h1>
-                <p class="text-muted mb-5"><strong>Last Updated:</strong> <?= date('F d, Y'); ?></p>
-                
-                <h3 class="mt-5 mb-3" style="color: #E3000F;">Shipping Policy</h3>
-                
-                <h4 class="mt-4" style="font-size: 1.1rem; color: #17385A; font-weight: 600;">1. Order Processing & Dispatch</h4>
-                <p>All standard retail orders are processed, quality-checked, and dispatched within <strong>3 to 5 business days</strong>. For bulk, wholesale, or customized export orders, processing time may vary based on quantity, packaging requirements, and necessary export documentation (e.g., Phytosanitary certificates). Custom timelines will be communicated directly to the buyer at the time of purchase.</p>
+$pageTitle = "Shipping & Delivery Policy | VT Export";
+$meta_description = "Learn about domestic and international shipping options for premium industrial hardware and pipe fittings by VT Export.";
+$meta_key = "shipping policy, delivery policy, vt export, industrial export, sea freight";
 
-                <h4 class="mt-4" style="font-size: 1.1rem; color: #17385A; font-weight: 600;">2. Domestic Delivery (Within India)</h4>
-                <p>Once dispatched, standard delivery within India takes approximately <strong>5 to 7 business days</strong> depending on the destination pin code. Delays due to unforeseen circumstances (e.g., extreme weather, logistics strikes) are beyond our control, but we will keep you informed.</p>
+include 'includes/header.php';
+include 'includes/breadcrumb.php';
+?>
 
-                <h4 class="mt-4" style="font-size: 1.1rem; color: #17385A; font-weight: 600;">3. International Shipping & Exports</h4>
-                <p>For our international clients, shipping timelines depend on the chosen method of freight (Air or Sea). <strong>Please Note:</strong> The buyer is solely responsible for all destination country customs duties, import taxes, and local clearance fees. <strong>EURASIASTONEINDIA</strong> ensures all standard Indian export compliance documents are provided, but destination regulations must be handled by the importer.</p>
+<style>
+    /* Styling reused from Privacy Policy for consistency */
+    :root { --primary-blue: #0a2540; --accent-gold: #d4af37; --bg-light: #f8f9fc; --text-muted: #555555; }
+    .policy-section { background-color: var(--bg-light); padding: 80px 0; }
+    .policy-content { background: #ffffff; padding: 50px; border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 5px 25px rgba(10,37,64,0.04); }
+    .policy-title { color: var(--primary-blue); font-weight: 800; font-size: 2.2rem; margin-bottom: 10px; }
+    .policy-heading { color: var(--primary-blue); font-size: 1.4rem; font-weight: 800; margin-top: 40px; margin-bottom: 15px; border-bottom: 2px solid #f1f3f5; padding-bottom: 10px;}
+    .policy-subheading { color: var(--accent-gold); font-size: 1.1rem; font-weight: 700; margin-top: 25px; margin-bottom: 10px; }
+    .policy-content p, .policy-content ul li { color: var(--text-muted); line-height: 1.8; font-size: 1.05rem; margin-bottom: 15px; }
+    .sidebar-widget { background: #ffffff; padding: 35px 30px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #eaeaea; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
+    .widget-title { color: var(--primary-blue); font-size: 1.3rem; font-weight: 800; border-bottom: 2px solid #f1f3f5; padding-bottom: 12px; margin-bottom: 20px; position: relative; }
+    .widget-title::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 50px; height: 2px; background: var(--accent-gold); }
+    .search-flex { display: flex; }
+    .search-flex input { width: 100%; border: 2px solid #eaeaea; padding: 10px 15px; border-radius: 6px 0 0 6px; outline: none; }
+    .search-flex button { background: var(--primary-blue); border: none; padding: 0 20px; color: #fff; border-radius: 0 6px 6px 0; transition: 0.3s; }
+    .cat-list-widget { list-style: none; padding: 0; margin: 0; }
+    .cat-list-widget li { border-bottom: 1px solid #f1f3f5; }
+    .cat-list-widget li:last-child { border-bottom: none; }
+    .cat-list-widget a { display: flex; justify-content: space-between; padding: 12px 0; color: var(--text-muted); text-decoration: none; font-weight: 500; transition: 0.3s; }
+    .cat-list-widget a:hover { color: var(--accent-gold); padding-left: 10px; }
+    .cta-widget { background: linear-gradient(135deg, var(--primary-blue) 0%, #153c66 100%); color: #fff; text-align: center; padding: 40px 25px; border-radius: 10px; border-top: 4px solid var(--accent-gold); }
+    .cta-btn { display: inline-block; background: var(--accent-gold); color: var(--primary-blue); padding: 12px 30px; border-radius: 30px; font-weight: 700; text-transform: uppercase; text-decoration: none; transition: 0.3s; width: 100%; margin-bottom: 15px;}
+    .cta-btn:hover { background: #fff; color: var(--primary-blue); }
+</style>
 
-                <h4 class="mt-4" style="font-size: 1.1rem; color: #17385A; font-weight: 600;">4. Shipping Charges</h4>
-                <p>Shipping and freight charges are calculated based on the total weight/volume of the agricultural products and the delivery destination. Retail shipping costs will be displayed at checkout. For bulk container exports, freight charges will be provided via a custom invoice.</p>
+<section class="policy-section">
+    <div class="container">
+        <div class="row g-5">
+            
+            <div class="col-lg-8">
+                <div class="policy-content">
+                    <h1 class="policy-title">Shipping & Delivery Policy</h1>
+                    <p class="text-muted mb-4 border-bottom pb-4"><strong>Last Updated:</strong> <?= date('F d, Y'); ?></p>
+                    
+                    <h3 class="policy-heading">Shipping Logistics</h3>
+                    
+                    <h4 class="policy-subheading">1. Order Processing & Manufacturing</h4>
+                    <p>Standard B2B hardware orders are processed and prepared for dispatch within <strong>7 to 10 business days</strong>. Custom investment casting components or bulk container exports require custom lead times ranging from 3 to 6 weeks based on tooling and production schedules.</p>
 
-                <hr class="my-5">
+                    <h4 class="policy-subheading">2. International Sea & Air Freight</h4>
+                    <p>We supply globally via major seaports in India. We offer multiple INCOTERMS such as <strong>FOB, CIF, and EXW</strong>. Transit times vary depending on the destination port and shipping lines chosen (usually 15-45 days for sea freight).</p>
 
-                <h3 class="mb-3" style="color: #E3000F;">Returns Policy</h3>
-                
-                <h4 class="mt-4" style="font-size: 1.1rem; color: #17385A; font-weight: 600;">1. Non-Returnable Items (Food Safety Rule)</h4>
-                <p>Because our products (Rice, Spices, Turmeric, Seeds, etc.) fall under the category of perishable agricultural and food goods, <strong>we do not accept standard returns or exchanges</strong> once the product has left our facility. This policy is strictly enforced to maintain global food safety, purity, and hygiene standards (FSSAI/FDA guidelines).</p>
+                    <h4 class="policy-subheading">3. Customs, Duties & Taxes</h4>
+                    <p>Unless shipped under DDP terms, the buyer is fully responsible for destination country customs duties, import clearance fees, and local taxes. <strong>VT Export</strong> provides all mandatory Indian export compliance documentation, commercial invoices, packing lists, and Certificates of Origin.</p>
 
-                <h4 class="mt-4" style="font-size: 1.1rem; color: #17385A; font-weight: 600;">2. Exceptions for Damaged or Incorrect Orders</h4>
-                <p>We only allow exceptions if:</p>
-                <ul>
-                    <li>You received an entirely wrong product.</li>
-                    <li>The packaging was severely damaged or compromised during transit before delivery.</li>
-                </ul>
-                <p>If you meet these criteria, you must contact us within <strong>48 hours of receiving the delivery</strong>. Please record an unboxing video and take clear photographs of the damaged shipping box and the product itself.</p>
-
-                <h4 class="mt-4" style="font-size: 1.1rem; color: #17385A; font-weight: 600;">3. Return Process (If Approved)</h4>
-                <p>To initiate a damage/incorrect item claim, please email our support team at <strong>eurasiastoneindia@gmail.com</strong> with your Order ID, invoice, and visual proof (photos/videos). If your claim is validated by our Quality Check team, we will either send a free replacement or initiate a refund. Do not send the product back without prior written authorization from our team.</p>
-
+                    <h3 class="policy-heading" style="margin-top: 50px;">Logistics Liabilities</h3>
+                    
+                    <h4 class="policy-subheading">1. Freight Damage</h4>
+                    <p>Goods are securely packed in export-quality wooden crates, pallets, or custom corrugated boxes. Responsibility for freight damage transfers to the buyer or insurance provider once the container is loaded onboard the vessel (FOB terms).</p>
+                </div>
             </div>
+
+            <!-- RIGHT COLUMN: Sidebar -->
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 100px;">
+                    <div class="sidebar-widget">
+                        <h5 class="widget-title">Search Products</h5>
+                        <form action="products.php" method="GET" class="search-flex">
+                            <input type="text" name="search" placeholder="Search..." required>
+                            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h5 class="widget-title">Categories</h5>
+                        <ul class="cat-list-widget">
+                            <?php
+                            $catQuery = mysqli_query($conn, "SELECT categories, slug_url FROM categories WHERE status = 1 ORDER BY id DESC LIMIT 6");
+                            if (mysqli_num_rows($catQuery) > 0) {
+                                while($catRow = mysqli_fetch_assoc($catQuery)) {
+                            ?>
+                            <li>
+                                <a href="category/<?= urlencode($catRow['slug_url']) ?>">
+                                    <span><i class="fa-solid fa-folder-open me-2" style="color: var(--accent-gold);"></i> <?= htmlspecialchars($catRow['categories']) ?></span>
+                                    <i class="fa-solid fa-angle-right" style="font-size: 0.75rem;"></i>
+                                </a>
+                            </li>
+                            <?php 
+                                }
+                            }
+                            ?>
+                        </ul>
+                    </div>
+
+                    <div class="cta-widget">
+                        <i class="fa-solid fa-ship" style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 20px;"></i>
+                        <h4 style="font-weight: 800; font-size: 1.3rem; margin-bottom: 10px;">Export Inquiry?</h4>
+                        <p style="font-size: 0.95rem; color: rgba(255,255,255,0.8); margin-bottom: 20px;">Get reliable global shipping quotes for wholesale industrial commodities.</p>
+                        <a href="contact" class="cta-btn">Request Quote</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>

@@ -1,63 +1,133 @@
-<?php include 'includes/header.php'; ?>
+<?php
+include('config/connect.php');
 
-<section class="py-5" style="background-color: #f8f9fa;">
-    <div class="container mt-5">
-        <div class="row bg-white p-4 p-md-5 rounded shadow-sm">
-            <div class="col-12">
-                <h1 class="mb-3" style="color: #17385A; font-weight: 700;">Privacy Policy</h1>
-                <p class="text-muted mb-5"><strong>Last Updated:</strong> <?= date('F d, Y'); ?></p>
+$pageTitle = "Privacy Policy | VT Export";
+$meta_description = "Read the Privacy Policy of VT Export regarding personal data protection for our industrial components, pipe fittings, and metal casting products.";
+$meta_key = "privacy policy, vt export, industrial components, pipe fittings, metal casting, b2b export";
 
-                <p>Welcome to <strong>EURASIASTONEINDIA</strong>. We respect your privacy and are committed to protecting your personal data. This Privacy Policy outlines how we collect, use, process, and safeguard your information when you visit our website, purchase our agricultural export products (such as rice, spices, turmeric, etc.), or use our services.</p>
+include 'includes/header.php';
+include 'includes/breadcrumb.php';
+?>
 
-                <h4 class="mt-5" style="color: #E3000F; font-size: 1.2rem;">1. Information We Collect</h4>
-                <p>To provide you with a seamless and secure experience, we collect the following types of information:</p>
-                <ul>
-                    <li><strong>Personal Identification Information:</strong> Name, email address, phone number, and company details (if applicable).</li>
-                    <li><strong>Shipping & Billing Information:</strong> Delivery address, billing address, postal code, and country of destination.</li>
-                    <li><strong>Technical Data:</strong> IP address, browser type, time zone setting, operating system, and platform details when you browse our website.</li>
-                    <li><strong>KYC & Export Compliance Data:</strong> For bulk international orders, we may collect business registration details, GST/VAT numbers, or import licenses as required by law.</li>
-                </ul>
+<style>
+    :root {
+        --primary-blue: #0a2540;
+        --accent-gold: #d4af37;
+        --bg-light: #f8f9fc;
+        --text-muted: #555555;
+    }
+    .policy-section { background-color: var(--bg-light); padding: 80px 0; }
+    .policy-content { background: #ffffff; padding: 50px; border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 5px 25px rgba(10,37,64,0.04); }
+    .policy-title { color: var(--primary-blue); font-weight: 800; font-size: 2.2rem; margin-bottom: 10px; }
+    .policy-heading { color: var(--accent-gold); font-size: 1.3rem; font-weight: 700; margin-top: 40px; margin-bottom: 15px; }
+    .policy-content p, .policy-content ul li { color: var(--text-muted); line-height: 1.8; font-size: 1.05rem; margin-bottom: 15px; }
+    .sidebar-widget { background: #ffffff; padding: 35px 30px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #eaeaea; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
+    .widget-title { color: var(--primary-blue); font-size: 1.3rem; font-weight: 800; border-bottom: 2px solid #f1f3f5; padding-bottom: 12px; margin-bottom: 20px; position: relative; }
+    .widget-title::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 50px; height: 2px; background: var(--accent-gold); }
+    .search-flex { display: flex; }
+    .search-flex input { width: 100%; border: 2px solid #eaeaea; padding: 10px 15px; border-radius: 6px 0 0 6px; outline: none; }
+    .search-flex button { background: var(--primary-blue); border: none; padding: 0 20px; color: #fff; border-radius: 0 6px 6px 0; transition: 0.3s; }
+    .cat-list-widget { list-style: none; padding: 0; margin: 0; }
+    .cat-list-widget li { border-bottom: 1px solid #f1f3f5; }
+    .cat-list-widget li:last-child { border-bottom: none; }
+    .cat-list-widget a { display: flex; justify-content: space-between; padding: 12px 0; color: var(--text-muted); text-decoration: none; font-weight: 500; transition: 0.3s; }
+    .cat-list-widget a:hover { color: var(--accent-gold); padding-left: 10px; }
+    .cta-widget { background: linear-gradient(135deg, var(--primary-blue) 0%, #153c66 100%); color: #fff; text-align: center; padding: 40px 25px; border-radius: 10px; border-top: 4px solid var(--accent-gold); }
+    .cta-btn { display: inline-block; background: var(--accent-gold); color: var(--primary-blue); padding: 12px 30px; border-radius: 30px; font-weight: 700; text-transform: uppercase; text-decoration: none; transition: 0.3s; width: 100%; margin-bottom: 15px;}
+    .cta-btn:hover { background: #fff; color: var(--primary-blue); }
+</style>
 
-                <h4 class="mt-5" style="color: #E3000F; font-size: 1.2rem;">2. How We Use Your Information</h4>
-                <p>We use the collected information for the following purposes:</p>
-                <ul>
-                    <li>To process and fulfill your orders, including arranging shipping, customs clearance, and delivery.</li>
-                    <li>To communicate with you regarding your order status, invoices, and tracking details.</li>
-                    <li>To process payments securely and prevent fraudulent transactions.</li>
-                    <li>To comply with international trade laws, agricultural export regulations, and legal obligations.</li>
-                    <li>To improve our website functionality, customer service, and overall user experience.</li>
-                </ul>
+<section class="policy-section">
+    <div class="container">
+        <div class="row g-5">
+            
+            <div class="col-lg-8">
+                <div class="policy-content">
+                    <h1 class="policy-title">Privacy Policy</h1>
+                    <p class="text-muted mb-4 border-bottom pb-4"><strong>Last Updated:</strong> <?= date('F d, Y'); ?></p>
 
-                <h4 class="mt-5" style="color: #E3000F; font-size: 1.2rem;">3. Payment Processing & Financial Data (Crucial)</h4>
-                <p>We do not store your credit card, debit card, UPI, or net banking details on our servers. All online transactions are processed through highly secure, PCI-DSS compliant third-party payment gateways (e.g., Razorpay, Stripe, etc.). Your financial data is encrypted through the Payment Card Industry Data Security Standard (PCI-DSS). Our payment partners adhere to the strictest security standards to ensure your transactional data remains 100% confidential and safe.</p>
+                    <p>Welcome to <strong>VT Export</strong>. We respect your privacy and are committed to protecting your personal data. This Privacy Policy outlines how we collect, use, process, and safeguard your information when you visit our website, inquire about our premium B2B products—including industrial hardware, pipe fittings, and marine castings—or use our services.</p>
 
-                <h4 class="mt-5" style="color: #E3000F; font-size: 1.2rem;">4. Third-Party Data Sharing</h4>
-                <p>We do not sell, trade, or rent your personal information to others. However, we may share your information with trusted third parties strictly for business operations, including:</p>
-                <ul>
-                    <li><strong>Logistics & Shipping Partners:</strong> Courier companies, freight forwarders, and customs agents to deliver your products.</li>
-                    <li><strong>Payment Gateways:</strong> To securely process your financial transactions.</li>
-                    <li><strong>Legal & Regulatory Authorities:</strong> If requested by government bodies, customs officials, or law enforcement for compliance and fraud prevention.</li>
-                </ul>
+                    <h4 class="policy-heading">1. Information We Collect</h4>
+                    <p>To provide you with a seamless and secure B2B wholesale inquiry experience, we collect:</p>
+                    <ul>
+                        <li><strong>Personal & Business Information:</strong> Name, email address, phone number, company name, and job title.</li>
+                        <li><strong>Logistics Information:</strong> Delivery address, port of destination, and specific shipping requirements for international freight.</li>
+                        <li><strong>Technical Data:</strong> IP address, browser type, time zone setting, and platform details when browsing our catalog.</li>
+                        <li><strong>Trade Compliance Data:</strong> For bulk and wholesale export orders, we may collect business credentials, tax IDs, or import licenses as required by international trade regulations.</li>
+                    </ul>
 
-                <h4 class="mt-5" style="color: #E3000F; font-size: 1.2rem;">5. Cookies and Tracking Technologies</h4>
-                <p>Our website uses "cookies" to enhance your browsing experience. Cookies are small text files placed on your device to remember your preferences, keep your cart active, and analyze site traffic. You can choose to accept or decline cookies through your browser settings, though declining may limit certain functionalities of the website.</p>
+                    <h4 class="policy-heading">2. How We Use Your Information</h4>
+                    <ul>
+                        <li>To process, manufacture, pack, and fulfill your industrial and hardware orders.</li>
+                        <li>To communicate regarding quotations, shipping updates, customs documentation, and support.</li>
+                        <li>To comply with export regulations and legal trade obligations globally.</li>
+                    </ul>
 
-                <h4 class="mt-5" style="color: #E3000F; font-size: 1.2rem;">6. Data Security Measures</h4>
-                <p>We implement industry-standard security measures, including SSL (Secure Socket Layer) technology, firewalls, and restricted access controls, to protect your personal information from unauthorized access, alteration, disclosure, or destruction. While we strive to use commercially acceptable means to protect your data, no method of transmission over the internet is 100% secure.</p>
+                    <h4 class="policy-heading">3. Third-Party Data Sharing</h4>
+                    <p>We do not sell or trade your data. Trusted third parties assist us in our export operations, including:</p>
+                    <ul>
+                        <li><strong>Logistics & Freight Partners:</strong> Shipping lines and freight forwarders required to deliver your containers safely.</li>
+                        <li><strong>Regulatory Authorities:</strong> Government or customs bodies when legally required for export compliance.</li>
+                    </ul>
 
-                <h4 class="mt-5" style="color: #E3000F; font-size: 1.2rem;">7. Your Rights</h4>
-                <p>Depending on your location, you may have the right to access, update, or delete the personal information we hold about you. If you wish to opt-out of marketing communications or request data deletion, please contact us at our official email address.</p>
+                    <h4 class="policy-heading">4. Data Security</h4>
+                    <p>We implement robust technical and physical security measures to protect your commercial data against unauthorized access, disclosure, or misuse during the quotation and ordering process.</p>
 
-                <h4 class="mt-5" style="color: #E3000F; font-size: 1.2rem;">8. Contact Us</h4>
-                <p>If you have any questions, concerns, or requests regarding this Privacy Policy or how we handle your data, please reach out to us at:</p>
-                <div class="p-3 mt-3 rounded" style="background-color: #f1f5f9; border-left: 4px solid #17385A;">
-                    <p class="mb-1"><strong>EURASIASTONEINDIA</strong></p>
-                    <p class="mb-1"><strong>Address:</strong> 3rd Floor, Flat No.303, Fortune Iconia, Main Road, Palakaluru Road, Behind Guntur Club, Guntur, Andhra Pradesh - 522006, India.</p>
-                    <p class="mb-1"><strong>Phone:</strong> +91 99123 00247</p>
-                    <p class="mb-0"><strong>Email:</strong> eurasiastoneindia@gmail.com</p>
+                    <h4 class="policy-heading">5. Contact Us</h4>
+                    <div class="p-4 mt-4 rounded" style="background-color: #f1f3f5; border-left: 4px solid var(--accent-gold);">
+                        <p class="mb-2"><strong style="color: var(--primary-blue); font-size: 1.1rem;">VT Export</strong></p>
+                        <p class="mb-2"><strong>Specialization:</strong> Global Exporters of Industrial Hardware, Pipe Fittings & Investment Castings</p>
+                        <p class="mb-2"><strong>Phone:</strong> +91-8882623545</p>
+                        <p class="mb-0"><strong>Email:</strong> info@vtexport.in</p>
+                    </div>
                 </div>
-                
             </div>
+
+            <!-- RIGHT COLUMN: Sidebar -->
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 100px;">
+                    
+                    <div class="sidebar-widget">
+                        <h5 class="widget-title">Search Products</h5>
+                        <form action="products.php" method="GET" class="search-flex">
+                            <input type="text" name="search" placeholder="Search industrial parts..." required>
+                            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h5 class="widget-title">Categories</h5>
+                        <ul class="cat-list-widget">
+                            <?php
+                            $catQuery = mysqli_query($conn, "SELECT categories, slug_url FROM categories WHERE status = 1 ORDER BY id DESC LIMIT 6");
+                            if (mysqli_num_rows($catQuery) > 0) {
+                                while($catRow = mysqli_fetch_assoc($catQuery)) {
+                            ?>
+                            <li>
+                                <a href="category/<?= urlencode($catRow['slug_url']) ?>">
+                                    <span><i class="fa-solid fa-folder-open me-2" style="color: var(--accent-gold);"></i> <?= htmlspecialchars($catRow['categories']) ?></span>
+                                    <i class="fa-solid fa-angle-right" style="font-size: 0.75rem;"></i>
+                                </a>
+                            </li>
+                            <?php 
+                                }
+                            }
+                            ?>
+                        </ul>
+                    </div>
+
+                    <div class="cta-widget">
+                        <i class="fa-solid fa-box-open" style="font-size: 3rem; color: var(--accent-gold); margin-bottom: 20px;"></i>
+                        <h4 style="font-weight: 800; font-size: 1.3rem; margin-bottom: 10px;">Bulk Export Orders?</h4>
+                        <p style="font-size: 0.95rem; color: rgba(255,255,255,0.8); margin-bottom: 20px;">Get premium quality export-grade industrial components at wholesale pricing.</p>
+                        <a href="contact" class="cta-btn">Request Quote</a>
+                        <a href="tel:+918882623545" style="color: var(--accent-gold); text-decoration: none; font-weight: 600;"><i class="fa-solid fa-phone me-1"></i> +91-8882623545</a>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
