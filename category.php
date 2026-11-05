@@ -63,8 +63,7 @@ if (!empty($slug) && !$category) {
     }
 }
 
-// --- 3. DYNAMIC SEO SETUP ---
-// --- 3. DYNAMIC SEO SETUP ---
+// --- 3. DYNAMIC SEO SETUP (Passed directly to header.php) ---
 if ($sub_category) {
     $pageTitle     = $sub_category['categories'];
     $meta_title    = !empty($sub_category['meta_title']) ? $sub_category['meta_title'] : $sub_category['categories'] . " - VT Export";
@@ -74,45 +73,18 @@ if ($sub_category) {
 } elseif ($category) {
     $pageTitle     = $category['categories'];
     $meta_title    = !empty($category['meta_title']) ? $category['meta_title'] : $category['categories'] . " - VT Export";
-    $meta_desc     = !empty($category['meta_desc']) ? $category['meta_desc'] : 'Browse ' . $category['categories'] . ' at VT Export.';
+    $meta_desc     = !empty($category['meta_desc']) ? $sub_category['meta_desc'] ?? $category['meta_desc'] : 'Browse ' . $category['categories'] . ' at VT Export.';
     $meta_key      = !empty($category['meta_key']) ? $category['meta_key'] : $category['categories'] . ', export';
     $custom_schema = !empty($category['schema_markup']) ? $category['schema_markup'] : '';
 } else {
-    $pageTitle  = !empty($search) ? "Search: " . htmlspecialchars($search) : "Product Categories";
-    $meta_title = "Explore Product Categories - VT Export";
-    $meta_desc  = "Browse all product categories at VT Export.";
-    $meta_key   = "categories, products, VT export";
+    $pageTitle     = !empty($search) ? "Search: " . htmlspecialchars($search) : "Product Categories";
+    $meta_title    = "Explore Product Categories - VT Export";
+    $meta_desc     = "Browse all product categories at VT Export.";
+    $meta_key      = "categories, products, VT export";
     $custom_schema = "";
 }
 
-// Canonical URL setup
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$host = $_SERVER['HTTP_HOST'];
-if (strpos($host, 'localhost') === false && strpos($host, '127.0.0.1') === false && strpos($host, 'www.') !== 0) {
-    $host = 'www.' . $host;
-}
-$clean_uri = strtok($_SERVER['REQUEST_URI'], '?');
-$custom_canonical = $protocol . $host . $clean_uri;
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($meta_title); ?></title>
-    <meta name="description" content="<?php echo htmlspecialchars($meta_desc); ?>">
-    <meta name="keywords" content="<?php echo htmlspecialchars($meta_key); ?>">
-    <link rel="canonical" href="<?php echo htmlspecialchars($custom_canonical); ?>">
-
-    <!-- 🔥 FIX: BASE TAG FOR CATEGORY URL REWRITES 🔥 -->
-    <base href="http://localhost/projects/vtexport/">
-</head>
-
-<body>
-
-    <?php
+// Directly include header.php (No duplicate <head> or localhost <base> here!)
 include 'includes/header.php';
 include 'includes/breadcrumb.php';
 
@@ -133,7 +105,6 @@ $total_pages    = ceil($total_products / $limit);
 
 $prod_query = mysqli_query($conn, "SELECT pro_name, pro_img, slug_url FROM products WHERE $where_sql ORDER BY id DESC LIMIT $offset, $limit");
 
-// Pagination Helper URL Rewrite format ke liye
 function buildCategoryUrl($page_num, $slug, $sub_slug, $search) {
     if (!empty($search)) {
         return "category.php?search=" . urlencode($search) . "&page=" . $page_num;
@@ -148,229 +119,195 @@ function buildCategoryUrl($page_num, $slug, $sub_slug, $search) {
 }
 ?>
 
-    <style>
-    .category-page-section {
-        padding: 70px 0;
-        background: #f8f9fc;
-    }
+<style>
+.category-page-section {
+    padding: 70px 0;
+    background: #f8f9fc;
+}
+.subcat-pill {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #0a2540;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    transition: 0.3s;
+}
+.subcat-pill:hover, .subcat-pill.active {
+    background: #0a2540;
+    color: #fff;
+    border-color: #0a2540;
+}
+.subcat-pill i {
+    color: #d4af37;
+    margin-right: 5px;
+}
+.sidebar-widget {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+.widget-title {
+    color: #0a2540;
+    font-weight: 700;
+    border-bottom: 2px solid #f1f3f5;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.cat-tree-link {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    color: #0a2540;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid #f1f3f5;
+    transition: 0.3s;
+}
+.cat-tree-link:hover, .cat-tree-link.active {
+    color: #d4af37;
+    padding-left: 10px;
+}
+.subcat-tree-list {
+    list-style: none;
+    padding-left: 15px;
+    margin-top: 10px;
+}
+.subcat-tree-list a {
+    display: block;
+    color: #555;
+    text-decoration: none;
+    padding: 5px 0;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+.subcat-tree-list a:hover, .subcat-tree-list a.active {
+    color: #d4af37;
+    font-weight: 600;
+}
+</style>
 
-    .subcat-pill {
-        display: inline-block;
-        padding: 8px 18px;
-        border: 1px solid #ddd;
-        background: #fff;
-        color: #0a2540;
-        border-radius: 30px;
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 600;
-        margin-right: 8px;
-        margin-bottom: 8px;
-        transition: 0.3s;
-    }
-
-    .subcat-pill:hover,
-    .subcat-pill.active {
-        background: #0a2540;
-        color: #fff;
-        border-color: #0a2540;
-    }
-
-    .subcat-pill i {
-        color: #d4af37;
-        margin-right: 5px;
-    }
-
-    .sidebar-widget {
-        background: #fff;
-        border: 1px solid #eaeaea;
-        border-radius: 8px;
-        padding: 25px;
-        margin-bottom: 30px;
-    }
-
-    .widget-title {
-        color: #0a2540;
-        font-weight: 700;
-        border-bottom: 2px solid #f1f3f5;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-    }
-
-    .cat-tree-link {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 0;
-        color: #0a2540;
-        text-decoration: none;
-        font-weight: 600;
-        border-bottom: 1px solid #f1f3f5;
-        transition: 0.3s;
-    }
-
-    .cat-tree-link:hover,
-    .cat-tree-link.active {
-        color: #d4af37;
-        padding-left: 10px;
-    }
-
-    .subcat-tree-list {
-        list-style: none;
-        padding-left: 15px;
-        margin-top: 10px;
-    }
-
-    .subcat-tree-list a {
-        display: block;
-        color: #555;
-        text-decoration: none;
-        padding: 5px 0;
-        font-size: 0.9rem;
-        transition: 0.3s;
-    }
-
-    .subcat-tree-list a:hover,
-    .subcat-tree-list a.active {
-        color: #d4af37;
-        font-weight: 600;
-    }
-    </style>
-
-    <section class="category-page-section">
-        <div class="container">
-            <div class="row g-5">
-                <!-- LEFT COLUMN -->
-                <div class="col-lg-8">
-                    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
-                        <div>
-                            <span class="text-uppercase" style="color: #d4af37; font-weight: 600; font-size: 0.8rem;">
-                                <?php echo $sub_category ? htmlspecialchars($category['categories'] ?? 'Sub-Category') : 'Our Catalog'; ?>
-                            </span>
-                            <h2 class="fw-bold m-0" style="color: #0a2540;">
-                                <?php echo $sub_category ? htmlspecialchars($sub_category['categories']) : ($category ? htmlspecialchars($category['categories']) : "All Products"); ?>
-                            </h2>
-                        </div>
-                        <span class="badge bg-white text-dark border p-2">Showing <?php echo $total_products; ?>
-                            Products</span>
+<section class="category-page-section">
+    <div class="container">
+        <div class="row g-5">
+            <!-- LEFT COLUMN -->
+            <div class="col-lg-8">
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+                    <div>
+                        <span class="text-uppercase" style="color: #d4af37; font-weight: 600; font-size: 0.8rem;">
+                            <?php echo $sub_category ? htmlspecialchars($category['categories'] ?? 'Sub-Category') : 'Our Catalog'; ?>
+                        </span>
+                        <h2 class="fw-bold m-0" style="color: #0a2540;">
+                            <?php echo $sub_category ? htmlspecialchars($sub_category['categories']) : ($category ? htmlspecialchars($category['categories']) : "All Products"); ?>
+                        </h2>
                     </div>
+                    <span class="badge bg-white text-dark border p-2">Showing <?php echo $total_products; ?> Products</span>
+                </div>
 
-                    <!-- Sub-Category Filter -->
-                    <?php if ($cate_id > 0): 
+                <!-- Sub-Category Filter -->
+                <?php if ($cate_id > 0): 
                     $subcats_q = mysqli_query($conn, "SELECT * FROM sub_categories WHERE parent_id = '$cate_id' AND status = 1 ORDER BY id ASC");
                     if (mysqli_num_rows($subcats_q) > 0):
                 ?>
-                    <div class="bg-white p-3 rounded border mb-4">
-                        <div class="fw-bold small text-muted mb-2 text-uppercase">Filter by Sub-Category:</div>
-                        <a href="category/<?php echo urlencode($slug); ?>"
-                            class="subcat-pill <?php echo empty($sub_slug) ? 'active' : ''; ?>"><i
-                                class="fas fa-th-large"></i> All
-                            <?php echo htmlspecialchars($category['categories']); ?></a>
-                        <?php while ($sc = mysqli_fetch_assoc($subcats_q)): ?>
-                        <!-- 🔥 Fixed URL Rewrite Link for Subcategories 🔥 -->
-                        <a href="category/<?php echo urlencode($slug); ?>/<?php echo urlencode($sc['slug_url']); ?>"
-                            class="subcat-pill <?php echo ($sub_slug == $sc['slug_url']) ? 'active' : ''; ?>">
-                            <i class="fas fa-angle-right"></i> <?php echo htmlspecialchars($sc['categories']); ?>
-                        </a>
-                        <?php endwhile; ?>
-                    </div>
-                    <?php endif; endif; ?>
+                <div class="bg-white p-3 rounded border mb-4">
+                    <div class="fw-bold small text-muted mb-2 text-uppercase">Filter by Sub-Category:</div>
+                    <a href="category/<?php echo urlencode($slug); ?>" class="subcat-pill <?php echo empty($sub_slug) ? 'active' : ''; ?>">
+                        <i class="fas fa-th-large"></i> All <?php echo htmlspecialchars($category['categories']); ?>
+                    </a>
+                    <?php while ($sc = mysqli_fetch_assoc($subcats_q)): ?>
+                    <a href="category/<?php echo urlencode($slug); ?>/<?php echo urlencode($sc['slug_url']); ?>" class="subcat-pill <?php echo ($sub_slug == $sc['slug_url']) ? 'active' : ''; ?>">
+                        <i class="fas fa-angle-right"></i> <?php echo htmlspecialchars($sc['categories']); ?>
+                    </a>
+                    <?php endwhile; ?>
+                </div>
+                <?php endif; endif; ?>
 
-                    <!-- Products Grid -->
-                    <div class="row g-4">
-                        <?php if (mysqli_num_rows($prod_query) > 0) {
+                <!-- Products Grid -->
+                <div class="row g-4">
+                    <?php if (mysqli_num_rows($prod_query) > 0) {
                         while ($prod = mysqli_fetch_assoc($prod_query)) {
-                            $p_img = !empty($prod['pro_img']) ? 'admin/assets/img/uploads/' . $prod['pro_img'] : 'assets/images/default-product.jpg';
+                            $db_img = $prod['pro_img'];
+                            $p_img = !empty($db_img) ? 'admin/assets/img/uploads/' . $db_img : 'assets/images/default-product.jpg';
+                            if (!empty($db_img) && !file_exists($p_img)) {
+                                $p_img = 'admin/' . $db_img;
+                            }
                     ?>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="bg-white border rounded h-100 text-center"
-                                style="box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
-                                <div style="height: 200px; padding: 15px; position: relative;">
-                                    <span
-                                        style="position:absolute; top:10px; left:10px; background:#741b38; color:#fff; padding:3px 10px; font-size:0.7rem; border-radius:20px;">Export
-                                        Grade</span>
-                                    <a href="product/<?php echo urlencode($prod['slug_url']); ?>">
-                                        <img src="<?php echo $p_img; ?>"
-                                            alt="<?php echo htmlspecialchars($prod['pro_name']); ?>"
-                                            style="width: 100%; height: 100%; object-fit: contain;">
-                                    </a>
-                                </div>
-                                <div class="p-3 border-top text-start">
-                                    <a href="product/<?php echo urlencode($prod['slug_url']); ?>"
-                                        style="text-decoration: none; color: #0a2540;">
-                                        <h6 class="fw-bold mb-2"><?php echo htmlspecialchars($prod['pro_name']); ?></h6>
-                                    </a>
-                                    <a href="product/<?php echo urlencode($prod['slug_url']); ?>"
-                                        class="small text-muted text-decoration-none d-block mb-3">View Details <i
-                                            class="fas fa-chevron-right ms-1 text-warning"></i></a>
-                                    <a href="contact.php?product=<?php echo urlencode($prod['pro_name']); ?>"
-                                        class="btn btn-sm w-100" style="background:#0a2540; color:#fff;">Inquire Now</a>
-                                </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="bg-white border rounded h-100 text-center" style="box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+                            <div style="height: 200px; padding: 15px; position: relative;">
+                                <span style="position:absolute; top:10px; left:10px; background:#741b38; color:#fff; padding:3px 10px; font-size:0.7rem; border-radius:20px;">Export Grade</span>
+                                <a href="product/<?php echo urlencode($prod['slug_url']); ?>">
+                                    <img src="<?php echo $p_img; ?>" alt="<?php echo htmlspecialchars($prod['pro_name']); ?>" style="width: 100%; height: 100%; object-fit: contain;">
+                                </a>
+                            </div>
+                            <div class="p-3 border-top text-start">
+                                <a href="product/<?php echo urlencode($prod['slug_url']); ?>" style="text-decoration: none; color: #0a2540;">
+                                    <h6 class="fw-bold mb-2"><?php echo htmlspecialchars($prod['pro_name']); ?></h6>
+                                </a>
+                                <a href="product/<?php echo urlencode($prod['slug_url']); ?>" class="small text-muted text-decoration-none d-block mb-3">View Details <i class="fas fa-chevron-right ms-1 text-warning"></i></a>
+                                <a href="contact?product=<?php echo urlencode($prod['pro_name']); ?>" class="btn btn-sm w-100" style="background:#0a2540; color:#fff;">Inquire Now</a>
                             </div>
                         </div>
-                        <?php } } else { echo "<div class='col-12'><p class='text-muted p-4 bg-white border rounded text-center'>No products found.</p></div>"; } ?>
                     </div>
-
-                    <!-- Pagination -->
-                    <?php if ($total_pages > 1): ?>
-                    <nav class="mt-5">
-                        <ul class="pagination justify-content-center">
-                            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                            <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
-                                <a class="page-link"
-                                    href="<?php echo buildCategoryUrl($i, $slug, $sub_slug, $search); ?>"><?php echo $i; ?></a>
-                            </li>
-                            <?php endfor; ?>
-                        </ul>
-                    </nav>
-                    <?php endif; ?>
+                    <?php } } else { echo "<div class='col-12'><p class='text-muted p-4 bg-white border rounded text-center'>No products found.</p></div>"; } ?>
                 </div>
 
-                <!-- RIGHT COLUMN: SIDEBAR -->
-                <div class="col-lg-4">
-                    <div class="sidebar-widget">
-                        <h4 class="widget-title">Product Categories</h4>
-                        <ul class="list-unstyled mb-0">
-                            <li><a href="products.php" class="cat-tree-link"><span><i
-                                            class="fas fa-boxes me-2 text-warning"></i> All Products</span></a></li>
+                <!-- Pagination -->
+                <?php if ($total_pages > 1): ?>
+                <nav class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                        <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
+                            <a class="page-link" href="<?php echo buildCategoryUrl($i, $slug, $sub_slug, $search); ?>"><?php echo $i; ?></a>
+                        </li>
+                        <?php endfor; ?>
+                    </ul>
+                </nav>
+                <?php endif; ?>
+            </div>
 
-                            <?php
+            <!-- RIGHT COLUMN: SIDEBAR -->
+            <div class="col-lg-4">
+                <div class="sidebar-widget">
+                    <h4 class="widget-title">Product Categories</h4>
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="products" class="cat-tree-link"><span><i class="fas fa-boxes me-2 text-warning"></i> All Products</span></a></li>
+                        <?php
                         $side_cats = mysqli_query($conn, "SELECT * FROM categories WHERE status = 1 ORDER BY id ASC");
                         while ($s_cat = mysqli_fetch_assoc($side_cats)):
                             $s_cid = $s_cat['cate_id'];
                             $side_subs = mysqli_query($conn, "SELECT * FROM sub_categories WHERE parent_id = '$s_cid' AND status = 1 ORDER BY id ASC");
                         ?>
-                            <li>
-                                <!-- URL Rewrite Link -->
-                                <a href="category/<?php echo urlencode($s_cat['slug_url']); ?>"
-                                    class="cat-tree-link <?php echo ($cate_id == $s_cid) ? 'active' : ''; ?>">
-                                    <span><i class="fas fa-folder me-2 text-warning"></i>
-                                        <?php echo htmlspecialchars($s_cat['categories']); ?></span>
-                                </a>
-
-                                <?php if (mysqli_num_rows($side_subs) > 0): ?>
-                                <ul class="subcat-tree-list">
-                                    <?php while ($s_sub = mysqli_fetch_assoc($side_subs)): ?>
-                                    <li>
-                                        <!-- URL Rewrite Link for Subcategories -->
-                                        <a href="category/<?php echo urlencode($s_cat['slug_url']); ?>/<?php echo urlencode($s_sub['slug_url']); ?>"
-                                            class="<?php echo ($sub_cate_id == $s_sub['cate_id']) ? 'active' : ''; ?>">
-                                            - <?php echo htmlspecialchars($s_sub['categories']); ?>
-                                        </a>
-                                    </li>
-                                    <?php endwhile; ?>
-                                </ul>
-                                <?php endif; ?>
-                            </li>
-                            <?php endwhile; ?>
-                        </ul>
-                    </div>
+                        <li>
+                            <a href="category/<?php echo urlencode($s_cat['slug_url']); ?>" class="cat-tree-link <?php echo ($cate_id == $s_cid) ? 'active' : ''; ?>">
+                                <span><i class="fas fa-folder me-2 text-warning"></i> <?php echo htmlspecialchars($s_cat['categories']); ?></span>
+                            </a>
+                            <?php if (mysqli_num_rows($side_subs) > 0): ?>
+                            <ul class="subcat-tree-list">
+                                <?php while ($s_sub = mysqli_fetch_assoc($side_subs)): ?>
+                                <li>
+                                    <a href="category/<?php echo urlencode($s_cat['slug_url']); ?>/<?php echo urlencode($s_sub['slug_url']); ?>" class="<?php echo ($sub_cate_id == $s_sub['cate_id']) ? 'active' : ''; ?>">
+                                        - <?php echo htmlspecialchars($s_sub['categories']); ?>
+                                    </a>
+                                </li>
+                                <?php endwhile; ?>
+                            </ul>
+                            <?php endif; ?>
+                        </li>
+                        <?php endwhile; ?>
+                    </ul>
                 </div>
-
             </div>
+
         </div>
-    </section>
+    </div>
+</section>
 
-    <?php include 'includes/footer.php'; ?>
-</body>
-
-</html>
+<?php include 'includes/footer.php'; ?>

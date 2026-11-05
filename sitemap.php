@@ -4,7 +4,7 @@ include 'config/connect.php';
 
 // config/connect.php se global $site variable utha liya
 global $site;
-$baseUrl = !empty($site) ? $site : "https://royalblue-gazelle-538620.hostingersite.com/";
+$baseUrl = !empty($site) ? $site : "https://vtexport.digitalwebtrackerspvtltd.com/";
 
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
@@ -62,14 +62,27 @@ echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
     while ($row = mysqli_fetch_assoc($catQuery)) {
     $catVal = !empty($row['slug_url']) ? $row['slug_url'] : $row['cate_id'];
     echo '<url>';
-        echo '<loc>' . $baseUrl . 'products.php?category=' . urlencode($catVal) . '</loc>';
+        echo '<loc>' . $baseUrl . 'category/' . urlencode($catVal) . '</loc>';
+        echo '<changefreq>weekly</changefreq>';
+        echo '<priority>0.8</priority>';
+        echo '</url>';
+    }
+    }
+    
+        // 3. Dynamic Services
+    $catQuery = mysqli_query($conn, "SELECT id, slug_url FROM services;");
+    if ($catQuery && mysqli_num_rows($catQuery) > 0) {
+    while ($row = mysqli_fetch_assoc($catQuery)) {
+    $catVal = !empty($row['slug_url']) ? $row['slug_url'] : $row['cate_id'];
+    echo '<url>';
+        echo '<loc>' . $baseUrl . 'service/' . urlencode($catVal) . '</loc>';
         echo '<changefreq>weekly</changefreq>';
         echo '<priority>0.8</priority>';
         echo '</url>';
     }
     }
 
-    // 3. Dynamic Products
+    // 4. Dynamic Products
     $prodQuery = mysqli_query($conn, "SELECT id, slug_url FROM products WHERE status = 1");
     if ($prodQuery && mysqli_num_rows($prodQuery) > 0) {
     while ($row = mysqli_fetch_assoc($prodQuery)) {
@@ -83,7 +96,7 @@ echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
     }
     }
 
-    // 4. Dynamic Blogs
+    // 5. Dynamic Blogs
     $blogQuery = mysqli_query($conn, "SELECT slug FROM blogs WHERE status = 1");
     if ($blogQuery && mysqli_num_rows($blogQuery) > 0) {
     while ($row = mysqli_fetch_assoc($blogQuery)) {

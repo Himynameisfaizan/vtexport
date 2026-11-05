@@ -30,21 +30,21 @@ $services_query = mysqli_query($conn, "SELECT * FROM services ORDER BY id ASC");
             ?>
             <div class="service-row">
                 <div class="service-img-col">
-                    <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>">
+                    <a href="service/<?php echo $service['slug_url']; ?>">
                         <img src="<?php echo $s_img; ?>"
                             alt="<?php echo htmlspecialchars($service['service_name']); ?>">
                     </a>
                 </div>
                 <div class="service-content-col">
                     <h3 class="service-title">
-                        <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>"
+                        <a href="service/<?php echo $service['slug_url']; ?>"
                             style="text-decoration: none;">
                             <?php echo htmlspecialchars($service['service_name']); ?>
                     </h3>
                     </a>
                     <p class="service-desc"><?php echo htmlspecialchars($service['short_desc']); ?></p>
 
-                    <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>" class="btn-service-outline">
+                    <a href="service/<?php echo $service['slug_url']; ?>" class="btn-service-outline">
                         Read More <i class="fas fa-arrow-right ms-2"></i>
                     </a>
                 </div>

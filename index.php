@@ -183,7 +183,7 @@ $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path
             <div class="col-lg-4 col-md-6">
                 <div class="premium-service-card">
                     <div class="service-img-box">
-                        <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>">
+                        <a href="service/<?php echo $service['slug_url']; ?>">
                             <img src="<?php echo $img_src; ?>"
                                 alt="<?php echo htmlspecialchars($service['service_name']); ?>">
                         </a>
@@ -191,7 +191,7 @@ $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path
 
                     <div class="service-content-box">
                         <h3>
-                            <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>"
+                            <a href="service/<?php echo $service['slug_url']; ?>"
                                 style="color: inherit; text-decoration: none;">
                                 <?php echo htmlspecialchars($service['service_name']); ?>
                             </a>
@@ -199,7 +199,7 @@ $services_query = mysqli_query($conn, "SELECT service_name, short_desc, img_path
                         <p><?php echo htmlspecialchars($service['short_desc']); ?></p>
 
                         <!-- 🔥 FIX: Dynamic Slug Link 🔥 -->
-                        <a href="service-details.php?slug=<?php echo $service['slug_url']; ?>"
+                        <a href="service/<?php echo $service['slug_url']; ?>"
                             class="service-read-more">
                             Explore <i class="fas fa-arrow-right"></i>
                         </a>
